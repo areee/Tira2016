@@ -1,4 +1,7 @@
 
-class Heap {
+public class Heap {
+
+    public Heap() {
+    }
 
 }
