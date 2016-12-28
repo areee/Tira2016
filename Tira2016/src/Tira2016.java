@@ -1,9 +1,4 @@
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-// Tietorakenteet-kurssin harjoitustyö
 // (c)2016 Arttu Ylhävuori
 public class Tira2016 {
 
