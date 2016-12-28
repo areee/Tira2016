@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.stream.Stream;
 
 public class Reader {
 
@@ -15,16 +16,17 @@ public class Reader {
         String line;
         try {
             BufferedReader br = new BufferedReader(new FileReader(arg));
-            for (int i = 0; i < 6; i++) {
+            BufferedReader br2 = new BufferedReader(new FileReader(arg)); // kopio count-laskentaa varten
+            long count = br2.lines().count();
+
+            for (int i = 0; i < count; i++) {
                 line = br.readLine(); //esim. i, 7, Seiska
                 String[] values = line.split(" "); // esim. values[0]: "i", values[1]: " 7", values[2]: " Seiska"
 //                    System.out.println(values[0]);
                 for (String value : values) {
                     System.out.println(value);
                 }
-                System.out.println("");
             }
-
         } catch (IOException e) {
             System.out.println("File not found.");;
         }

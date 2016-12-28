@@ -13,11 +13,15 @@ public class Tira2016 {
             // 1.) Lue input.txt args[0]:sta
             Reader reader = new Reader(args[0]); // Oletus: input.txt löytyy args[0]:sta
             reader.readInput();
+
+            // 2.) Muodosta keko
+            // 3.) kirjoita output.txt args[1]:een
+            Writer writer = new Writer(args[1]);
+            writer.writeOutput();
+
         } else {
             System.out.println("Virheellinen syöte.");
         }
-
-        // 2.) Muodosta keko ja 3.) kirjoita output.txt args[1]:een
     }
 
 }
