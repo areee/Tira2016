@@ -2,22 +2,22 @@
 public class HeapNode {
 
     private final int key;
-    private final String data;
+    private final String element;
     private HeapNode left;
     private HeapNode right;
     private HeapNode parent;
 
-    public HeapNode(int key, String data) {
+    public HeapNode(int key, String element) {
         this.key = key;
-        this.data = data;
+        this.element = element;
     }
 
     public int getKey() {
         return key;
     }
 
-    public String getData() {
-        return data;
+    public String getElement() {
+        return element;
     }
 
     public HeapNode getLeft() {

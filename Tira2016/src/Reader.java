@@ -17,9 +17,8 @@ public class Reader {
             long count = br2.lines().count();
 
             for (int i = 0; i < count; i++) {
-                line = br.readLine(); //esim. i, 7, Seiska
-                String[] values = line.split(" "); // esim. values[0]: "i", values[1]: " 7", values[2]: " Seiska"
-//                    System.out.println(values[0]);
+                line = br.readLine(); //esim. i 7 Seiska
+                String[] values = line.split(" "); // esim. values[0]: "i", values[1]: "7", values[2]: "Seiska"
                 for (String value : values) {
                     System.out.println(value);
                 }
