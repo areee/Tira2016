@@ -10,6 +10,9 @@ public class Tira2016 {
             reader.readInput();
 
             // 2.) Muodosta keko
+            
+            Heap heap = new Heap();
+            
             // 3.) kirjoita output.txt args[1]:een
             Writer writer = new Writer(args[1]);
             writer.writeOutput();
