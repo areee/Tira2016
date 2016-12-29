@@ -20,7 +20,7 @@ public class HeapSimplePriorityQueue implements PositionalContainer {
     }
 
     // Lisää uuden alkion e avaimella k P:hen.
-    public void insertItem(Object k, Object e) throws InvalidKeyException { // Onko poikkeus ok?
+    public void insertItem(int k, String e) throws InvalidKeyException { // Onko poikkeus ok?
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Invalid Key");
         }
@@ -29,9 +29,27 @@ public class HeapSimplePriorityQueue implements PositionalContainer {
             z = T.root();
         } else {
             z = last;
-            while (!T.isRoot(z)) { // &&!isLeftChild(z)
-
+            while (!T.isRoot(z) && !isLeftChild(z)) {
+                z = T.parent(z);
             }
+            if (!T.isRoot(z)) {
+                z = T.rightChild(T.parent(z));
+            }
+            while (!T.isExternal(z)) {
+                z = T.leftChild(z);
+            }
+        }
+        T.expandExternal(z);
+        T.replace(z, new HeapNode(k, e));
+        last = z;
+        HeapNode u;
+        while (!T.isRoot(z)) {
+            u = T.parent(z);
+            if (comparator.isLessThanOrEqual(u.getKey(), z.getKey())) {
+                break;
+            }
+            T.swap(u, z);
+            z = u;
         }
     }
 
@@ -92,6 +110,10 @@ public class HeapSimplePriorityQueue implements PositionalContainer {
 
     @Override
     public Object replace(HeapNode v, Object e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public boolean isLeftChild(HeapNode v) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
