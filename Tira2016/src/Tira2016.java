@@ -11,7 +11,7 @@ public class Tira2016 {
             reader.readInput();
 
             // 2.) Muodosta keko
-            BinaryTree binaryTree = new BinaryTree();
+            HeapSimplePriorityQueue hspq = new HeapSimplePriorityQueue();
 
             // 3.) kirjoita output.txt args[1]:een
             Writer writer = new Writer(args[1]);

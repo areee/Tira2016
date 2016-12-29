@@ -19,6 +19,24 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     /**
+     * Palauttaa binääripuun koon.
+     *
+     * @return int
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * Asettaa binääripuulle uuden koon.
+     *
+     * @param size int
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    /**
      * Solmun v syvyys on sen esivanhempien lukumäärä poislukien solmu itse.
      *
      * @param T SimpleTree
