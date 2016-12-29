@@ -1,11 +1,13 @@
 
+import java.util.Enumeration;
+
 /**
  * Binääripuu on järjestetty puu, jossa solmuilla on joko ei yhtään tai kaksi
  * lasta.
  *
  * @author ylhaart
  */
-public class BinaryTree {
+public class BinaryTree implements SimpleTree {
 
     private int size;
 
@@ -34,120 +36,64 @@ public class BinaryTree {
         return null;
     }
 
-    /**
-     * Palauttaa puun T juurisolmun. Puun ollessa tyhjä esiintyy virhe.
-     *
-     * @return HeapNode
-     */
+    @Override
     public HeapNode root() {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Palauttaa solmun v vanhemman. Solmun v ollessa juuri esiintyy virhe.
-     *
-     * @param v HeapNode
-     * @return HeapNode
-     */
+    @Override
     public HeapNode parent(HeapNode v) {
-        return null;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Palauttaa luettelon solmun v lapsista.
-     *
-     * @param v HeapNode
-     * @return HeapNode[]
-     */
-    public HeapNode[] children(HeapNode v) {
-        return null;
+    @Override
+    public Enumeration children(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Testaa, onko solmu v sisäsolmu.
-     *
-     * @param v HeapNode
-     * @return boolean
-     */
+    @Override
     public boolean isInternal(HeapNode v) {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Testaa, onko solmu v ulkosolmu eli lehti.
-     *
-     * @param v HeapNode
-     * @return boolean
-     */
+    @Override
     public boolean isExternal(HeapNode v) {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Testaa, onko solmu v juuri.
-     *
-     * @param v HeapNode
-     * @return boolean
-     */
+    @Override
     public boolean isRoot(HeapNode v) {
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Palauttaa puun T solmujen lukumäärän.
-     *
-     * @return size
-     */
+    @Override
     public int size() {
         return size;
     }
 
-    /**
-     * Testaa onko puussa T solmuja vai ei.
-     *
-     * @return boolean
-     */
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
-    /**
-     * Palauttaa kaikki puun T solmuihin talletetut alkiot luettelona.
-     *
-     * @return HeapNode[]
-     */
-    public HeapNode[] elements() {
-        return null;
+    @Override
+    public Enumeration elements() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Palauttaa puun T kaikkien solmujen (paikkojen) luettelon.
-     *
-     * @return HeapNode[]
-     */
-    public HeapNode[] positions() {
-        return null;
+    @Override
+    public Enumeration positions() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Vaihtaa keon T solmujen v ja w alkiot keskenään.
-     *
-     * @param v HeapNode
-     * @param w HeapNode
-     */
+    @Override
     public void swap(HeapNode v, HeapNode w) {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    /**
-     * Korvaa solmun v alkion alkiolla e ja palauttaa aiemman alkion.
-     *
-     * @param v HeapNode
-     * @param e HeapNode
-     * @return HeapNode v
-     */
-    public HeapNode replace(HeapNode v, HeapNode e) {
+    @Override
+    public Object replace(HeapNode v, Object e) {
+        // ei valmis, täydennä!
         return v;
     }
-
 }
