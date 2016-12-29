@@ -7,7 +7,7 @@ import java.util.Enumeration;
  *
  * @author ylhaart
  */
-public class BinaryTree implements SimpleTree {
+public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi: SimpleTree
 
     private int size;
 
@@ -19,21 +19,53 @@ public class BinaryTree implements SimpleTree {
     }
 
     /**
-     * Palauttaa alkion kyseisestä solmusta.
+     * Solmun v syvyys on sen esivanhempien lukumäärä poislukien solmu itse.
      *
-     * @return HeapNode
+     * @param T SimpleTree
+     * @param v HeapNode
+     * @return int
      */
-    public HeapNode element() {
-        return null;
+    public int depth(SimpleTree T, HeapNode v) {
+        if (T.isRoot(v)) {
+            return 0;
+        }
+        return (1 + depth(T, T.parent(v)));
     }
 
     /**
-     * Palauttaa viittauksen puuhun, joka sisältää kyseisen solmun.
+     * Solmun v korkeus puussa T. Koko puun korkeus on sama kuin juuren korkeus.
      *
-     * @return BinaryTree
+     * @param T SimpleTree
+     * @return int h
      */
-    public BinaryTree container() {
-        return null;
+    public int height1(SimpleTree T) {
+        int h = 0;
+        Enumeration nodes_of_T = T.positions();
+
+        while (nodes_of_T.hasMoreElements()) {
+            HeapNode v = (HeapNode) nodes_of_T.nextElement();
+            if (T.isExternal(v)) {
+                h = Math.max(h, depth(T, v));
+            }
+        }
+        return h;
+    }
+
+    /**
+     *
+     * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
+     * tämän alipuissa käymällä lapset rekursiivisesti läpi.
+     *
+     * @param T SimpleTree
+     * @param v HeapNode
+     */
+    public void preorderPrint(SimpleTree T, HeapNode v) {
+        System.out.println(T.element(v));
+        Enumeration children_of_v = T.children(v);
+        while (children_of_v.hasMoreElements()) {
+            HeapNode w = (HeapNode) children_of_v.nextElement();
+            preorderPrint(T, w);
+        }
     }
 
     @Override
@@ -95,5 +127,40 @@ public class BinaryTree implements SimpleTree {
     public Object replace(HeapNode v, Object e) {
         // ei valmis, täydennä!
         return v;
+    }
+
+    @Override
+    public BinaryTree container() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int element(HeapNode v) {
+        return v.getKey();
+    }
+
+    @Override
+    public HeapNode leftChild(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HeapNode rightChild(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HeapNode sibling(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void expandExternal(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public HeapNode removeAboveExternal(HeapNode v) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

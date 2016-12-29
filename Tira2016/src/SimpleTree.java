@@ -55,4 +55,23 @@ public interface SimpleTree extends PositionalContainer {
      * @return boolean
      */
     public boolean isRoot(HeapNode v);
+
+
+    /*
+--------------------------------------------------------------------------------
+     */
+    /**
+     * Palauttaa avaimen arvon kyseisestä solmusta.
+     *
+     * @param v HeapNode
+     * @return int
+     */
+    public int element(HeapNode v);
+
+    /**
+     * Palauttaa viittauksen puuhun, joka sisältää kyseisen solmun.
+     *
+     * @return BinaryTree
+     */
+    public BinaryTree container();
 }
