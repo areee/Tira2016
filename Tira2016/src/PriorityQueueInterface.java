@@ -27,6 +27,7 @@ public interface PriorityQueueInterface {
      *
      * @param k int
      * @param e String
+     * @throws java.security.InvalidKeyException
      */
     public void insertItem(int k, String e) throws InvalidKeyException;
 
