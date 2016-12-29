@@ -1,8 +1,8 @@
 
 public class HeapNode {
 
-    private final int key;
-    private final String element;
+    private int key; // onko final?
+    private String element; // onko final?
     private HeapNode left;
     private HeapNode right;
     private HeapNode parent;
@@ -30,6 +30,14 @@ public class HeapNode {
 
     public HeapNode getParent() {
         return parent;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public void setElement(String element) {
+        this.element = element;
     }
 
     public void setLeft(HeapNode left) {
