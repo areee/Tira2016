@@ -10,7 +10,7 @@ public class Comparator {
     }
 
     // Tosi, jos ja vain jos a on pienempi tai yhtä suuri kuin b.
-    public boolean isLessThanOrEqual(int a, int b) {
+    public boolean isLessThanOrEqualTo(int a, int b) {
         return a <= b;
     }
 
@@ -25,7 +25,7 @@ public class Comparator {
     }
 
     // Tosi, jos ja vain jos a on suurempi tai yhtä suuri kuin b.
-    public boolean isGreaterThanOrEqual(int a, int b) {
+    public boolean isGreaterThanOrEqualTo(int a, int b) {
         return a >= b;
     }
 

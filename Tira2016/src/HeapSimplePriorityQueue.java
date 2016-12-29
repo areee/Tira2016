@@ -45,11 +45,19 @@ public class HeapSimplePriorityQueue implements PositionalContainer {
         HeapNode u;
         while (!T.isRoot(z)) {
             u = T.parent(z);
-            if (comparator.isLessThanOrEqual(u.getKey(), z.getKey())) {
+            if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
                 break;
             }
             T.swap(u, z);
             z = u;
+        }
+    }
+
+    private boolean isLeftChild(HeapNode p) {
+        try {
+            return T.leftChild(T.parent(p)).equals(p);
+        } catch (Exception e) {
+            return false;
         }
     }
 
@@ -112,9 +120,4 @@ public class HeapSimplePriorityQueue implements PositionalContainer {
     public Object replace(HeapNode v, Object e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public boolean isLeftChild(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }
