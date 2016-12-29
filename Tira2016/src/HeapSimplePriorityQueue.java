@@ -95,6 +95,6 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public boolean isEmpty() {
-        return T.isEmpty();
+        return T.isEmpty(); // return last == 0;
     }
 }

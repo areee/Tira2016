@@ -10,6 +10,7 @@ import java.util.Enumeration;
 public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi: SimpleTree
 
     private int size;
+    private HeapNode root;
 
     /**
      * Kun luodaan uusi binääripuu, se on aluksi tyhjä (size = 0).
@@ -88,12 +89,20 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public HeapNode root() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return root;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public HeapNode parent(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return v.getParent();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -123,7 +132,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return root == null; //size == 0
     }
 
     @Override
@@ -138,7 +147,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public void swap(HeapNode v, HeapNode w) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HeapNode tmp = v;
+        v = w;
+        w = tmp;
     }
 
     @Override
