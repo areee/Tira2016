@@ -62,11 +62,12 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public void removeMinElement() {
+    public HeapNode removeMinElement() {
         try {
 
         } catch (Exception e) {
         }
+        return null;
     }
 
     @Override
@@ -80,7 +81,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public String minElement() {
+    public HeapNode minElement() {
         return null;
     }
 

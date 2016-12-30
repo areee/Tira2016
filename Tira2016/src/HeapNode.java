@@ -52,4 +52,9 @@ public class HeapNode {
         this.parent = parent;
     }
 
+    @Override
+    public String toString() {
+        return "(" + getKey() + "," + getElement() + ")"; //esim. (7,seiska)
+    }
+
 }

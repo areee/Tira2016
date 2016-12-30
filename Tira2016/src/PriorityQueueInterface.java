@@ -37,7 +37,7 @@ public interface PriorityQueueInterface {
      *
      * @return String
      */
-    public String minElement();
+    public HeapNode minElement();
 
     /**
      * Palauttaa P:n pienimmän avaimen. Virhe esiintyy prioriteettijonon ollessa
@@ -46,11 +46,13 @@ public interface PriorityQueueInterface {
      * @return int
      */
     public int minKey();
-    // public Entry<K,V> min() throws EmptyPriorityQueueException
+    // public Entry<K,V> min() throws EmptyPriorityQueueException // K = key, V = value
 
     /**
      * Palauttaa ja poistaa P:stä alkion, jolla on pienin avain. Virhe esiintyy
      * prioriteettijonon ollessa tyhjä.
+     * @return HeapNode
      */
-    public void removeMinElement();
+    public HeapNode removeMinElement();
+    // public Entry<K,V> removeMin() throws EmptyPriorityQueueException // K = key, V = value
 }
