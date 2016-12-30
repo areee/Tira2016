@@ -20,7 +20,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     // Lisää uuden alkion e avaimella k P:hen.
     @Override
-    public void insertItem(int k, String e) throws InvalidKeyException { // Onko poikkeus ok?
+    public HeapNode insertItem(String k, String e) throws InvalidKeyException { // Onko poikkeus ok?
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Invalid Key");
         }
@@ -51,6 +51,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             T.swap(u, z);
             z = u;
         }
+        return null;
     }
 
     private boolean isLeftChild(HeapNode p) {

@@ -4,6 +4,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /* Tietorakenteet-kurssin harjoitustyö
 (c)2016 Arttu Ylhävuori*/
@@ -18,27 +21,39 @@ public class Tira2016 {
             long count = br2.lines().count();
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(args[1]));
-                int size = 0;
+//                int size = 0;
+                HeapSimplePriorityQueue hspq = new HeapSimplePriorityQueue();
 
                 for (int i = 0; i < count; i++) {
                     line = br.readLine();
                     String[] values = line.split(" "); // toimii myös tyhjällä rivillä
                     switch (values[0]) {
                         case "i":
-                            size++; // (väärässä paikassa, hae tämä tieto varsinaisesta keko-luokasta)
-                            System.out.println("insertItem");
+//                            size++; // (väärässä paikassa, hae tämä tieto varsinaisesta keko-luokasta)
                             // tähän väliin insertItem-metodin suoritusta
-                            bw.write("(" + values[1] + "," + values[2] + ") lis."); // varaudu, että syötteenä pelkkä "i"
-                            bw.newLine();
+
+                            if (values.length == 3) {
+                                try {
+                                    hspq.insertItem(values[1], values[2]);
+                                } catch (InvalidKeyException ex) {
+                                    System.out.println("Virheellinen avain.\n" + ex);
+                                }
+                            } else {
+                                bw.write("Virheellinen syöte.");
+                                bw.newLine();
+                            }
+
+//                            bw.write("(" + values[1] + "," + values[2] + ") lis."); // varaudu, että syötteenä pelkkä "i"
+//                            bw.newLine();
                             break;
                         case "s":
-                            System.out.println("size");
                             // tähän väliin size-metodin suoritusta
-                            bw.write("" + size);
-                            bw.newLine();
+
+//                            bw.write("" + size);
+//                            bw.newLine();
                             break;
                         case "r":
-                            size--;
+//                            size--;
                             System.out.println("removeMinElement");
                             // tähän väliin removeMinElement-metodin suoritusta
                             bw.write("(3,kolme) poistettu.");

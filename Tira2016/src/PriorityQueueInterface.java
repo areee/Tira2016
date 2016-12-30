@@ -27,9 +27,10 @@ public interface PriorityQueueInterface {
      *
      * @param k int
      * @param e String
+     * @return HeapNode
      * @throws java.security.InvalidKeyException
      */
-    public void insertItem(int k, String e) throws InvalidKeyException;
+    public HeapNode insertItem(String k, String e) throws InvalidKeyException;
 
     /**
      * Palauttaa P:n alkion, jolla on pienin avain. Virhe esiintyy
@@ -51,6 +52,7 @@ public interface PriorityQueueInterface {
     /**
      * Palauttaa ja poistaa P:stä alkion, jolla on pienin avain. Virhe esiintyy
      * prioriteettijonon ollessa tyhjä.
+     *
      * @return HeapNode
      */
     public HeapNode removeMinElement();
