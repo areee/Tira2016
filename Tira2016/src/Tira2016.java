@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /* Tietorakenteet-kurssin harjoitustyö
 (c)2016 Arttu Ylhävuori*/
@@ -42,23 +44,44 @@ public class Tira2016 {
                             break;
                         case "s":
                             int size = hspq.size();
-                            bw.write("" + size);
-                            bw.newLine();
+                            if (size == 0) {
+                                bw.write("Jono on tyhjä.");
+                                bw.newLine();
+                            } else {
+                                bw.write("" + size);
+                                bw.newLine();
+                            }
                             break;
                         case "r":
-                            HeapNode removeMinElement = hspq.removeMinElement();
-                            bw.write(removeMinElement + " poistettu.");
-                            bw.newLine();
+                            HeapNode removeMinElement;
+                            try {
+                                removeMinElement = hspq.removeMinElement();
+                                bw.write(removeMinElement + " poistettu.");
+                                bw.newLine();
+                            } catch (EmptyPriorityQueueException ex) {
+                                bw.write("Jono on tyhjä.");
+                                bw.newLine();
+                            }
                             break;
                         case "m":
-                            HeapNode minKey = hspq.minKey();
-                            bw.write("Pienin alkio on " + minKey + ".");
-                            bw.newLine();
+                            try {
+                                HeapNode minKey = hspq.minKey();
+                                bw.write("Pienin alkio on " + minKey + ".");
+                                bw.newLine();
+                            } catch (EmptyPriorityQueueException ex) {
+                                bw.write("Jono on tyhjä.");
+                                bw.newLine();
+                            }
                             break;
                         case "p":
                             String print = hspq.print();
-                            bw.write(print);
-                            bw.newLine();
+                            if (print.isEmpty()) {
+                                bw.write("Jono on tyhjä.");
+                                bw.newLine();
+                            } else {
+                                bw.write(print);
+                                bw.newLine();
+                            }
                             break;
                         case "q":
                             System.out.println("Ohjelma lopetettu.");
