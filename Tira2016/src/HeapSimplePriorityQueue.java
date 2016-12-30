@@ -80,8 +80,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public void minElement() {
-
+    public String minElement() {
+        return null;
     }
 
     public void print() {

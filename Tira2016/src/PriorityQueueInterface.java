@@ -34,8 +34,10 @@ public interface PriorityQueueInterface {
     /**
      * Palauttaa P:n alkion, jolla on pienin avain. Virhe esiintyy
      * prioriteettijonon ollessa tyhjä.
+     *
+     * @return String
      */
-    public void minElement();
+    public String minElement();
 
     /**
      * Palauttaa P:n pienimmän avaimen. Virhe esiintyy prioriteettijonon ollessa
@@ -44,6 +46,7 @@ public interface PriorityQueueInterface {
      * @return int
      */
     public int minKey();
+    // public Entry<K,V> min() throws EmptyPriorityQueueException
 
     /**
      * Palauttaa ja poistaa P:stä alkion, jolla on pienin avain. Virhe esiintyy
