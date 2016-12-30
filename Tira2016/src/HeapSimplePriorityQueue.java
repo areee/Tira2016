@@ -66,11 +66,23 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public HeapNode removeMinElement() throws EmptyPriorityQueueException {
-        try {
-
-        } catch (Exception e) {
+        if (isEmpty()) {
+            throw new EmptyPriorityQueueException("Jono on tyhjä.");
         }
-        return null;
+        // Kesken! Tarkista, meneekö oikeaan suuntaan!
+        HeapNode min = T.root();
+        if (size() == 1) {
+            T.replace(min, null); // heap.remove()
+        } else {
+            T.replace(min, null); // heap.replace(heap.root(),heap.remove())
+            // downHeap(heap.root())
+            while (T.isInternal(min)) {
+                HeapNode s;
+//                if(!T.hasRightChild(min)){
+//                  s = T.leftChild(min);}
+            }
+        }
+        return min;
     }
 
     @Override
