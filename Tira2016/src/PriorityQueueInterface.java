@@ -1,6 +1,4 @@
 
-import java.security.InvalidKeyException;
-
 /**
  * Prioriteettijonon metodit.
  *
@@ -28,7 +26,7 @@ public interface PriorityQueueInterface {
      * @param k int
      * @param e String
      * @return HeapNode
-     * @throws java.security.InvalidKeyException
+     * @throws InvalidKeyException
      */
     public HeapNode insertItem(String k, String e) throws InvalidKeyException;
 
@@ -46,7 +44,7 @@ public interface PriorityQueueInterface {
      *
      * @return int
      */
-    public int minKey();
+    public HeapNode minKey();
     // public Entry<K,V> min() throws EmptyPriorityQueueException // K = key, V = value
 
     /**

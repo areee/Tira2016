@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /* Tietorakenteet-kurssin harjoitustyö
 (c)2016 Arttu Ylhävuori*/
@@ -21,7 +18,6 @@ public class Tira2016 {
             long count = br2.lines().count();
             try {
                 BufferedWriter bw = new BufferedWriter(new FileWriter(args[1]));
-//                int size = 0;
                 HeapSimplePriorityQueue hspq = new HeapSimplePriorityQueue();
 
                 for (int i = 0; i < count; i++) {
@@ -29,55 +25,46 @@ public class Tira2016 {
                     String[] values = line.split(" "); // toimii myös tyhjällä rivillä
                     switch (values[0]) {
                         case "i":
-//                            size++; // (väärässä paikassa, hae tämä tieto varsinaisesta keko-luokasta)
-                            // tähän väliin insertItem-metodin suoritusta
 
                             if (values.length == 3) {
                                 try {
-                                    hspq.insertItem(values[1], values[2]);
+                                    HeapNode insertItem = hspq.insertItem(values[1], values[2]);
+                                    bw.write(insertItem + " lis.");
+                                    bw.newLine();
                                 } catch (InvalidKeyException ex) {
-                                    System.out.println("Virheellinen avain.\n" + ex);
+                                    bw.write("Virheellinen syöte.");
+                                    bw.newLine();
                                 }
                             } else {
                                 bw.write("Virheellinen syöte.");
                                 bw.newLine();
                             }
-
-//                            bw.write("(" + values[1] + "," + values[2] + ") lis."); // varaudu, että syötteenä pelkkä "i"
-//                            bw.newLine();
                             break;
                         case "s":
-                            // tähän väliin size-metodin suoritusta
-
-//                            bw.write("" + size);
-//                            bw.newLine();
+                            int size = hspq.size();
+                            bw.write("" + size);
+                            bw.newLine();
                             break;
                         case "r":
-//                            size--;
-                            System.out.println("removeMinElement");
-                            // tähän väliin removeMinElement-metodin suoritusta
-                            bw.write("(3,kolme) poistettu.");
+                            HeapNode removeMinElement = hspq.removeMinElement();
+                            bw.write(removeMinElement + " poistettu.");
                             bw.newLine();
                             break;
                         case "m":
-                            System.out.println("minKey");
-                            // tähän väliin minKey-metodin suoritusta
-                            bw.write("Pienin alkio on (3,kolme).");
+                            HeapNode minKey = hspq.minKey();
+                            bw.write("Pienin alkio on " + minKey + ".");
                             bw.newLine();
                             break;
                         case "p":
-                            System.out.println("print");
-                            // tähän väliin print-metodin suoritusta
-                            bw.write("3\n\t4\n\t\t7\n\t8");
+                            String print = hspq.print();
+                            bw.write(print);
                             bw.newLine();
                             break;
                         case "q":
                             System.out.println("Ohjelma lopetettu.");
                             bw.write("Ohjelma lopetettu.");
-                            bw.newLine();
                             break;
                         default:
-                            System.out.println("Virheellinen syöte.");
                             bw.write("Virheellinen syöte.");
                             bw.newLine();
                             break;

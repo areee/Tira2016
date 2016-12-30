@@ -1,5 +1,4 @@
 
-import java.security.InvalidKeyException;
 
 /*
 Prioriteettijonon abstraktin tietotyypin toteutus kekona.
@@ -72,13 +71,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public int minKey() {
+    public HeapNode minKey() {
         try {
 
         } catch (Exception e) {
         }
 
-        return 0;
+        return null;
     }
 
     @Override
@@ -86,8 +85,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         return null;
     }
 
-    public void print() {
-
+    public String print() {
+        return null;
     }
 
     @Override
