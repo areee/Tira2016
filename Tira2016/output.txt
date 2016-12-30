@@ -1,2 +1,20 @@
-Masa
-Masa
+(7,seiska) lis.
+(4,nelonen) lis.
+Virheellinen syöte.
+(8,kasi) lis.
+(a,bbb) lis.
+(3,kolme) lis.
+5
+Pienin alkio on (3,kolme).
+3
+	4
+		7
+	8
+(3,kolme) poistettu.
+4
+Pienin alkio on (3,kolme).
+3
+	4
+		7
+	8
+Ohjelma lopetettu.

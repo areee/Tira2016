@@ -28,16 +28,17 @@ public class Tira2016 {
                             size++; // (väärässä paikassa, hae tämä tieto varsinaisesta keko-luokasta)
                             System.out.println("insertItem");
                             // tähän väliin insertItem-metodin suoritusta
-                            bw.write("(" + values[1] + "," + values[2] + ") lis.");
+                            bw.write("(" + values[1] + "," + values[2] + ") lis."); // varaudu, että syötteenä pelkkä "i"
                             bw.newLine();
                             break;
                         case "s":
                             System.out.println("size");
                             // tähän väliin size-metodin suoritusta
-                            bw.write(size);
+                            bw.write("" + size);
                             bw.newLine();
                             break;
                         case "r":
+                            size--;
                             System.out.println("removeMinElement");
                             // tähän väliin removeMinElement-metodin suoritusta
                             bw.write("(3,kolme) poistettu.");
@@ -45,20 +46,19 @@ public class Tira2016 {
                             break;
                         case "m":
                             System.out.println("minKey");
-                            // tähän väliin removeMinElement-metodin suoritusta
-                            bw.write("(3,kolme) poistettu.");
+                            // tähän väliin minKey-metodin suoritusta
+                            bw.write("Pienin alkio on (3,kolme).");
                             bw.newLine();
                             break;
                         case "p":
                             System.out.println("print");
-                            // tähän väliin removeMinElement-metodin suoritusta
-                            bw.write("(3,kolme) poistettu.");
+                            // tähän väliin print-metodin suoritusta
+                            bw.write("3\n\t4\n\t\t7\n\t8");
                             bw.newLine();
                             break;
                         case "q":
                             System.out.println("Ohjelma lopetettu.");
-                            // tähän väliin removeMinElement-metodin suoritusta
-                            bw.write("(3,kolme) poistettu.");
+                            bw.write("Ohjelma lopetettu.");
                             bw.newLine();
                             break;
                         default:
@@ -67,27 +67,15 @@ public class Tira2016 {
                             bw.newLine();
                             break;
                     }
-
                 }
+                bw.close();
+
             } catch (IOException e) {
                 System.err.format("IOException: %s%n", e);
             }
-            System.out.println("Kirjoitetaan...");
         } catch (IOException e) {
             System.out.println("File not found.");;
         }
-
-        String s = "";
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter(args[1]));
-            bw.write(s);
-            bw.newLine();
-            bw.write(s);
-            bw.close();
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-        System.out.println("Kirjoitetaan...");
 
 //        if (args.length == 2) {
 //            // 1.) Lue input.txt args[0]:sta

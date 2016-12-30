@@ -1,8 +1,14 @@
-i 7 Seiska
-i 123 Luku
+i 7 seiska
+i 4 nelonen
 
-r
-p
-m
+i 8 kasi
+i a bbb
+i 3 kolme
 s
+m
+p
+r
+s
+m
+p
 q
