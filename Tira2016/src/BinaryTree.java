@@ -20,15 +20,6 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     /**
-     * Palauttaa binääripuun koon.
-     *
-     * @return int
-     */
-    public int getSize() {
-        return size;
-    }
-
-    /**
      * Asettaa binääripuulle uuden koon.
      *
      * @param size int
@@ -132,7 +123,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isEmpty() {
-        return root == null; //size == 0
+        return size == 0; // root == null
     }
 
     @Override

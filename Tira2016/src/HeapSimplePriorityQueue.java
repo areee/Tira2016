@@ -24,7 +24,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     @Override
     public HeapNode insertItem(String k, String e) throws InvalidKeyException { // Onko poikkeus ok?
         if (!comparator.isComparable(k)) {
-            throw new InvalidKeyException("Invalid Key");
+            throw new InvalidKeyException("Virheellinen syöte.");
         }
         HeapNode z;
         if (isEmpty()) {
@@ -53,7 +53,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             T.swap(u, z);
             z = u;
         }
-        return null;
+        return z;
     }
 
     private boolean isLeftChild(HeapNode p) {
@@ -75,12 +75,10 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public HeapNode minKey() throws EmptyPriorityQueueException {
-        try {
-
-        } catch (Exception e) {
+        if (isEmpty()) {
+            throw new EmptyPriorityQueueException("Jono on tyhjä.");
         }
-
-        return null;
+        return T.root(); // T.root().getKey()
     }
 
     @Override
@@ -94,11 +92,11 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public int size() {
-        return T.getSize();
+        return T.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return T.isEmpty(); // return last == 0;
+        return T.isEmpty(); // last == 0 // T.size() == 0
     }
 }

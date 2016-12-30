@@ -11,7 +11,7 @@ public interface PositionalContainer {
     /**
      * Palauttaa puun T solmujen lukumäärän.
      *
-     * @return size
+     * @return int
      */
     public int size();
 
