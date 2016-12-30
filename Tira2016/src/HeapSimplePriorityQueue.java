@@ -5,15 +5,18 @@ Prioriteettijonon abstraktin tietotyypin toteutus kekona.
  */
 public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
-    /* Keko T, jossa ovat solmuissa talletettuina prioriteettijonon
-    alkiot ja avaimet.
-     */
-    BinaryTree T;
+    // Keko T, jossa ovat solmuissa talletettuina prioriteettijonon alkiot
+    // ja avaimet:
+    BinaryTree T; // muuttujan nimi voisi olla yhtä hyvin "heap"
     HeapNode last; // Viittaus keon T viimeisen solmun paikkaan.
-    Comparator comparator; // Vertain, joka määrittelee avainten täydellisen järjestyksen relaation.
+    // Vertain, joka määrittelee avainten täydellisen järjestyksen relaation:
+    Comparator comparator;
 //    private int size;
 
     public HeapSimplePriorityQueue() {
+        T = new BinaryTree();
+//        last = new HeapNode(null, null); // tyhjässä keossa ei ole vielä viimeistä solmua
+        comparator = new Comparator();
 //        size = 0;
     }
 
