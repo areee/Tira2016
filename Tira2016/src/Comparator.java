@@ -66,7 +66,7 @@ public class Comparator {
      * Tosi, jos ja vain jos a on vertailtavissa. Tässä: onko objekti a
      * kokonaisluku (=Integer).
      *
-     * @param a
+     * @param a Object
      * @return boolean
      */
     public boolean isComparable(Object a) {

@@ -7,9 +7,8 @@ public class HeapNode {
     private HeapNode right;
     private HeapNode parent;
 
-    public HeapNode(String key, String element) {
-        int parseInt = Integer.parseInt(key);
-        this.key = parseInt;
+    public HeapNode(int key, String element) {
+        this.key = key;
         this.element = element;
     }
 

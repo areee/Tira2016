@@ -28,7 +28,8 @@ public class Tira2016 {
 
                             if (values.length == 3) {
                                 try {
-                                    HeapNode insertItem = hspq.insertItem(values[1], values[2]);
+                                    int parseInt = Integer.parseInt(values[1]);
+                                    HeapNode insertItem = hspq.insertItem(parseInt, values[2]);
                                     bw.write(insertItem + " lis.");
                                     bw.newLine();
                                 } catch (InvalidKeyException ex) {
