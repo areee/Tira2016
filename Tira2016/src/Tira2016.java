@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /* Tietorakenteet-kurssin harjoitustyö
 (c)2016 Arttu Ylhävuori*/
