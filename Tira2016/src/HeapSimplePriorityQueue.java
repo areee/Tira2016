@@ -1,7 +1,11 @@
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/*
-Prioriteettijonon abstraktin tietotyypin toteutus kekona.
+/**
+ * Prioriteettijonon abstraktin tietotyypin toteutus kekona.
+ *
+ * @author ylhaart
  */
 public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
@@ -13,29 +17,46 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     Comparator comparator;
 //    private int size;
 
+    /**
+     * Keko, joka on toteutettu käyttäen linkitettyä binääripuuta. Kun luodaan
+     * uusi keko, luodaan myös uusi binääripuu, viimeiseen kekosolmuun viittaava
+     * solmu sekä vertain.
+     */
     public HeapSimplePriorityQueue() {
         T = new BinaryTree();
-//        last = new HeapNode(null, null); // tyhjässä keossa ei ole vielä viimeistä solmua
+        last = null; // tyhjässä keossa ei ole vielä viimeistä solmua
         comparator = new Comparator();
 //        size = 0;
     }
 
-    // Lisää uuden alkion e avaimella k P:hen.
     @Override
     public HeapNode insertItem(int k, String e) throws InvalidKeyException { // Onko poikkeus ok?
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Virheellinen syöte.");
         }
-        HeapNode z;
+        HeapNode z = null;
         if (isEmpty()) {
-            z = T.root();
+            try {
+                z = T.root();
+            } catch (EmptyPriorityQueueException ex) {
+                System.out.println("Tyhjä jono:\n" + ex);
+            }
+
         } else {
             z = last;
             while (!T.isRoot(z) && !isLeftChild(z)) {
-                z = T.parent(z);
+                try {
+                    z = T.parent(z);
+                } catch (Exception ex) {
+                    Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (!T.isRoot(z)) {
-                z = T.rightChild(T.parent(z));
+                try {
+                    z = T.rightChild(T.parent(z));
+                } catch (Exception ex) {
+                    Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             while (!T.isExternal(z)) {
                 z = T.leftChild(z);
@@ -44,9 +65,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         T.expandExternal(z);
         T.replace(z, new HeapNode(k, e));
         last = z;
-        HeapNode u;
+        HeapNode u = null;
         while (!T.isRoot(z)) {
-            u = T.parent(z);
+            try {
+                u = T.parent(z);
+            } catch (Exception ex) {
+                Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
                 break;
             }
@@ -56,7 +81,14 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         return z;
     }
 
-    private boolean isLeftChild(HeapNode p) {
+    /**
+     * Selvittää, onko annettu solmu p vasen lapsi.
+     *
+     * @param p HeapNode
+     * @return boolean
+     * @throws InvalidKeyException
+     */
+    private boolean isLeftChild(HeapNode p) throws InvalidKeyException {
         try {
             return T.leftChild(T.parent(p)).equals(p);
         } catch (Exception e) {
@@ -94,8 +126,11 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public HeapNode minElement() {
-        return null;
+    public HeapNode minElement() throws EmptyPriorityQueueException {
+        if (isEmpty()) {
+            throw new EmptyPriorityQueueException("Jono on tyhjä.");
+        }
+        return T.root();
     }
 
     public String print() {

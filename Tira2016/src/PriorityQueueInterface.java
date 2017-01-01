@@ -36,7 +36,7 @@ public interface PriorityQueueInterface {
      *
      * @return String
      */
-    public HeapNode minElement();
+    public HeapNode minElement() throws EmptyPriorityQueueException;
 
     /**
      * Palauttaa P:n pienimmän avaimen. Virhe esiintyy prioriteettijonon ollessa

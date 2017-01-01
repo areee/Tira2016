@@ -17,6 +17,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      */
     public BinaryTree() {
         size = 0;
+        root = null;
     }
 
     /**
@@ -34,8 +35,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @param T SimpleTree
      * @param v HeapNode
      * @return int
+     * @throws java.lang.Exception
      */
-    public int depth(SimpleTree T, HeapNode v) {
+    public int depth(SimpleTree T, HeapNode v) throws Exception {
         if (T.isRoot(v)) {
             return 0;
         }
@@ -47,8 +49,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      *
      * @param T SimpleTree
      * @return int h
+     * @throws java.lang.Exception
      */
-    public int height1(SimpleTree T) {
+    public int height1(SimpleTree T) throws Exception {
         int h = 0;
         Enumeration nodes_of_T = T.positions();
 
@@ -79,26 +82,30 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public HeapNode root() {
-        try {
-            return root;
-        } catch (Exception e) {
-            return null;
+    public HeapNode root() throws EmptyPriorityQueueException {
+        if (isEmpty()) {
+            throw new EmptyPriorityQueueException("Jono on tyhjä.");
         }
+        return root;
     }
 
     @Override
-    public HeapNode parent(HeapNode v) {
-        try {
+    public HeapNode parent(HeapNode v) throws Exception {
+        if (!isRoot(v)) {
             return v.getParent();
-        } catch (Exception e) {
-            return null;
         }
+        throw new Exception("Kyseessä on juuri.");
     }
 
     @Override
-    public Enumeration children(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Enumeration children(HeapNode v) { // Enumeration vai HeapNode[]?
+//        HeapNode[] heapNodes = new HeapNode[size];
+//        for (int i = 0; i < heapNodes.length; i++) {
+//            HeapNode heapNode = heapNodes[i];
+//            
+//        }
+//        return heapNodes;
+        return null;
     }
 
     @Override
@@ -113,7 +120,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isRoot(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return root.equals(v);
     }
 
     @Override
