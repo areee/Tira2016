@@ -110,17 +110,19 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isInternal(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return !isExternal(v); // Kun solmu ei ole ulkosolmu, se on sisäsolmu.
     }
 
     @Override
     public boolean isExternal(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Solmu on ulkosolmu (=lehti), jos sillä ei ole lapsia.
+        return v.getLeft() == null && v.getRight() == null;
     }
 
     @Override
     public boolean isRoot(HeapNode v) {
-        return root.equals(v);
+        return v.getParent() == null;
+        //return root.equals(v);
     }
 
     @Override
@@ -130,7 +132,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isEmpty() {
-        return size == 0; // root == null
+        return root == null; // size == 0
     }
 
     @Override
@@ -151,9 +153,10 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public Object replace(HeapNode v, Object e) {
-        // ei valmis, täydennä!
-        return v;
+    public Object replace(HeapNode v, HeapNode e) {
+        HeapNode oldNode = v;
+        v = e;
+        return oldNode;
     }
 
     @Override
@@ -168,26 +171,37 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public HeapNode leftChild(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return v.getLeft();
     }
 
     @Override
     public HeapNode rightChild(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return v.getRight();
     }
 
     @Override
     public HeapNode sibling(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (v.getParent().getLeft().equals(v)) {
+            return v.getParent().getRight();
+        }
+        return v.getParent().getLeft();
     }
 
     @Override
-    public void expandExternal(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void expandExternal(HeapNode v) throws Exception {
+        if (isExternal(v)) {
+            v.setLeft(new HeapNode(-1, null, null, null, v)); // v:n vasen lapsi
+            v.setRight(new HeapNode(-1, null, null, null, v));
+        } else {
+            throw new Exception("Kyseessä on sisäsolmu.");
+        }
     }
 
     @Override
-    public HeapNode removeAboveExternal(HeapNode v) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public HeapNode removeAboveExternal(HeapNode v) throws Exception {
+        if (isInternal(v)) {
+            throw new Exception("Kyseessä on sisäsolmu.");
+        }
+        return null;
     }
 }

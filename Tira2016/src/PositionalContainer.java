@@ -48,8 +48,8 @@ public interface PositionalContainer {
      * Korvaa solmun v alkion alkiolla e ja palauttaa aiemman alkion.
      *
      * @param v HeapNode
-     * @param e Object
+     * @param e HeapNode
      * @return HeapNode v
      */
-    public Object replace(HeapNode v, Object e);
+    public Object replace(HeapNode v, HeapNode e);
 }

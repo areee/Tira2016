@@ -12,6 +12,14 @@ public class HeapNode {
         this.element = element;
     }
 
+    public HeapNode(int key, String element, HeapNode left, HeapNode right, HeapNode parent) {
+        this.key = key;
+        this.element = element;
+        this.left = left;
+        this.right = right;
+        this.parent = parent;
+    }
+
     public int getKey() {
         return key;
     }

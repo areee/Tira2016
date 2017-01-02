@@ -62,7 +62,11 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 z = T.leftChild(z);
             }
         }
-        T.expandExternal(z);
+        try {
+            T.expandExternal(z);
+        } catch (Exception ex) {
+            System.out.println("Kyseessä on sisäsolmu:\n" + ex);
+        }
         T.replace(z, new HeapNode(k, e));
         last = z;
         HeapNode u = null;
@@ -70,7 +74,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             try {
                 u = T.parent(z);
             } catch (Exception ex) {
-                Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Kyseessä on juuri:\n" + ex);
             }
             if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
                 break;
@@ -88,7 +92,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
      * @return boolean
      * @throws InvalidKeyException
      */
-    private boolean isLeftChild(HeapNode p) throws InvalidKeyException {
+    public boolean isLeftChild(HeapNode p) throws InvalidKeyException {
         try {
             return T.leftChild(T.parent(p)).equals(p);
         } catch (Exception e) {

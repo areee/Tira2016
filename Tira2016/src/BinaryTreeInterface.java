@@ -36,8 +36,9 @@ public interface BinaryTreeInterface extends SimpleTree {
      * nämä solmun v lapsiksi. Virhe esiintyy, mikäli v on sisäsolmu.
      *
      * @param v HeapNode
+     * @throws java.lang.Exception
      */
-    public void expandExternal(HeapNode v);
+    public void expandExternal(HeapNode v) throws Exception;
 
     /**
      * Poistaa lehden v ja tämän vanhemman u sekä sijoittaa v:n sisaruksen u:n
@@ -47,5 +48,5 @@ public interface BinaryTreeInterface extends SimpleTree {
      * @param v HeapNode
      * @return HeapNode
      */
-    public HeapNode removeAboveExternal(HeapNode v);
+    public HeapNode removeAboveExternal(HeapNode v) throws Exception;
 }
