@@ -30,13 +30,16 @@ public class Tira2016 {
                                 try {
                                     int parseInt = Integer.parseInt(values[1]);
                                     HeapNode insertItem = hspq.insertItem(parseInt, values[2]);
+                                    System.out.println(insertItem + " lis.");// aputuloste
                                     bw.write(insertItem + " lis.");
                                     bw.newLine();
                                 } catch (InvalidKeyException ex) {
+                                    System.out.println("Virheellinen syöte."); // aputuloste
                                     bw.write("Virheellinen syöte.");
                                     bw.newLine();
                                 }
                             } else {
+                                System.out.println("Virheellinen syöte."); // aputuloste
                                 bw.write("Virheellinen syöte.");
                                 bw.newLine();
                             }
@@ -44,9 +47,11 @@ public class Tira2016 {
                         case "s":
                             int size = hspq.size();
                             if (size == 0) {
+                                System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();
                             } else {
+                                System.out.println("" + size); // aputuloste
                                 bw.write("" + size);
                                 bw.newLine();
                             }
@@ -55,9 +60,11 @@ public class Tira2016 {
                             HeapNode removeMinElement;
                             try {
                                 removeMinElement = hspq.removeMinElement();
+                                System.out.println(removeMinElement + " poistettu."); // aputuloste
                                 bw.write(removeMinElement + " poistettu.");
                                 bw.newLine();
                             } catch (EmptyPriorityQueueException ex) {
+                                System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();
                             }
@@ -65,9 +72,11 @@ public class Tira2016 {
                         case "m":
                             try {
                                 HeapNode minKey = hspq.minKey();
+                                System.out.println("Pienin alkio on " + minKey + "."); // aputuloste
                                 bw.write("Pienin alkio on " + minKey + ".");
                                 bw.newLine();
                             } catch (EmptyPriorityQueueException ex) {
+                                System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();
                             }
@@ -75,18 +84,21 @@ public class Tira2016 {
                         case "p":
                             String print = hspq.print();
                             if (print.isEmpty()) {
+                                System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();
                             } else {
+                                System.out.println(print); // aputuloste
                                 bw.write(print);
                                 bw.newLine();
                             }
                             break;
                         case "q":
-                            System.out.println("Ohjelma lopetettu.");
+                            System.out.println("Ohjelma lopetettu."); // aputuloste
                             bw.write("Ohjelma lopetettu.");
                             break;
                         default:
+                            System.out.println("Virheellinen syöte.");
                             bw.write("Virheellinen syöte.");
                             bw.newLine();
                             break;
