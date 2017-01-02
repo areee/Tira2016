@@ -7,6 +7,9 @@ public class HeapNode {
     private HeapNode right;
     private HeapNode parent;
 
+    public HeapNode() {
+    }
+
     public HeapNode(int key, String element) {
         this.key = key;
         this.element = element;

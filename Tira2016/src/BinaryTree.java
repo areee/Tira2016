@@ -29,6 +29,14 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         this.size = size;
     }
 
+    public HeapNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(HeapNode root) {
+        this.root = root;
+    }
+
     /**
      * Solmun v syvyys on sen esivanhempien lukumäärä poislukien solmu itse.
      *
@@ -116,6 +124,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     @Override
     public boolean isExternal(HeapNode v) {
         // Solmu on ulkosolmu (=lehti), jos sillä ei ole lapsia.
+        if (v.getLeft() != null && v.getRight() != null) {
+            return v.getLeft().getKey() == 0 && v.getRight().getKey() == 0;
+        }
         return v.getLeft() == null && v.getRight() == null;
     }
 
@@ -188,13 +199,21 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void expandExternal(HeapNode v) throws Exception {
-        if (isExternal(v)) {
-            v.setLeft(new HeapNode(-1, null, null, null, v)); // v:n vasen lapsi
-            v.setRight(new HeapNode(-1, null, null, null, v));
-        } else {
+    public HeapNode expandExternal(HeapNode v) throws Exception {
+        if (isInternal(v)) {
             throw new Exception("Kyseessä on sisäsolmu.");
         }
+        if (isRoot(v)) {
+            v.setLeft(new HeapNode(0, "", null, null, v)); // asetetaan v:n vasen lapsi
+            v.setRight(new HeapNode(0, "", null, null, v)); // asetetaan v:n oikea lapsi
+
+            return v;
+        }
+        v.setLeft(new HeapNode(0, "", null, null, v)); // asetetaan v:n vasen lapsi
+        v.setRight(new HeapNode(0, "", null, null, v)); // asetetaan v:n oikea lapsi
+        HeapNode left = v.getLeft(); // oikeaan lapseen pitäisi myös varmaan asettaa...
+
+        return left;
     }
 
     @Override

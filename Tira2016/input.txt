@@ -1,5 +1,9 @@
 i 7 seiska
+s
+m
 i 4 nelonen
+s
+m
 
 i 8 kasi
 i a bbb

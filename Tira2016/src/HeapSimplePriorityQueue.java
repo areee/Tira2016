@@ -36,26 +36,28 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
         HeapNode z = new HeapNode(k, e, null, null, null); // z = null
         if (isEmpty()) {
-            try {
-                z = T.root();
-            } catch (EmptyPriorityQueueException ex) {
-                System.out.println("Tyhjä jono:\n" + ex);
-            }
+//            try {
+//                z = T.root();
+            T.setRoot(z);
+//            } catch (EmptyPriorityQueueException ex) {
+//                System.out.println("Tyhjä jono:\n" + ex);
+//            }
 
         } else {
             z = last;
+//            last = z;
             while (!T.isRoot(z) && !isLeftChild(z)) {
                 try {
                     z = T.parent(z);
                 } catch (Exception ex) {
-                    Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Solmu on juuri:\n" + ex);
                 }
             }
             if (!T.isRoot(z)) {
                 try {
                     z = T.rightChild(T.parent(z));
                 } catch (Exception ex) {
-                    Logger.getLogger(HeapSimplePriorityQueue.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Solmu on lehti:\n" + ex);
                 }
             }
             while (!T.isExternal(z)) {
@@ -63,12 +65,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             }
         }
         try {
-            T.expandExternal(z);
+            z = T.expandExternal(z); // Onko z:n asettaminen tarpeen?
         } catch (Exception ex) {
             System.out.println("Kyseessä on sisäsolmu:\n" + ex);
         }
-        T.replace(z, new HeapNode(k, e));
+        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
         last = z;
+        T.setSize(T.size() + 1);
         HeapNode u = null;
         while (!T.isRoot(z)) {
             try {
