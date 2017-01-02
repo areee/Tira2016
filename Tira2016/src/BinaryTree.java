@@ -17,6 +17,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      */
     public BinaryTree() {
         size = 0;
+//        root = new HeapNode(0, null, null, null, null);
         root = null;
     }
 
@@ -27,10 +28,6 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      */
     public void setSize(int size) {
         this.size = size;
-    }
-
-    public HeapNode getRoot() {
-        return root;
     }
 
     public void setRoot(HeapNode root) {
@@ -92,7 +89,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     @Override
     public HeapNode root() throws EmptyPriorityQueueException {
         if (isEmpty()) {
-            throw new EmptyPriorityQueueException("Jono on tyhjä.");
+            throw new EmptyPriorityQueueException("Puu on tyhjä.");
         }
         return root;
     }
@@ -199,21 +196,21 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public HeapNode expandExternal(HeapNode v) throws Exception {
+    public void expandExternal(HeapNode v) throws Exception {
         if (isInternal(v)) {
             throw new Exception("Kyseessä on sisäsolmu.");
         }
-        if (isRoot(v)) {
-            v.setLeft(new HeapNode(0, "", null, null, v)); // asetetaan v:n vasen lapsi
-            v.setRight(new HeapNode(0, "", null, null, v)); // asetetaan v:n oikea lapsi
+//        if (isRoot(v)) {
+        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
+        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
 
-            return v;
-        }
-        v.setLeft(new HeapNode(0, "", null, null, v)); // asetetaan v:n vasen lapsi
-        v.setRight(new HeapNode(0, "", null, null, v)); // asetetaan v:n oikea lapsi
-        HeapNode left = v.getLeft(); // oikeaan lapseen pitäisi myös varmaan asettaa...
-
-        return left;
+//            return v;
+//        }
+//        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
+//        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
+//        HeapNode left = v.getLeft(); // oikeaan lapseen pitäisi myös varmaan asettaa...
+//
+//        return left;
     }
 
     @Override

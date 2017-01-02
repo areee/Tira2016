@@ -34,14 +34,15 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Virheellinen syöte.");
         }
-        HeapNode z = new HeapNode(k, e, null, null, null); // z = null
+        HeapNode z = new HeapNode(k, e, null, null, null);
+//        HeapNode z = null;
         if (isEmpty()) {
-//            try {
-//                z = T.root();
-            T.setRoot(z);
-//            } catch (EmptyPriorityQueueException ex) {
-//                System.out.println("Tyhjä jono:\n" + ex);
-//            }
+            try {
+                z = T.root();
+//            T.setRoot(z);
+            } catch (EmptyPriorityQueueException ex) {
+                System.out.println("Tyhjä jono:\n" + ex);
+            }
 
         } else {
             z = last;
@@ -65,13 +66,14 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             }
         }
         try {
-            z = T.expandExternal(z); // Onko z:n asettaminen tarpeen?
+            T.expandExternal(z); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
         } catch (Exception ex) {
             System.out.println("Kyseessä on sisäsolmu:\n" + ex);
         }
-        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
+        T.replace(z, new HeapNode(k, e));
+//        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
         last = z;
-        T.setSize(T.size() + 1);
+        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
         HeapNode u = null;
         while (!T.isRoot(z)) {
             try {
