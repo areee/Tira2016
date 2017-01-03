@@ -35,6 +35,13 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         root.setRight(rightTree.root);
     }
 
+    private HeapNode checkPosition(Object v) throws InvalidPositionException {
+        if (v == null || !(v instanceof HeapNode)) {
+            throw new InvalidPositionException("Sijainti ei kelpaa.");
+        }
+        return (HeapNode) v;
+    }
+
     /**
      * Asettaa binääripuulle uuden koon.
      *
@@ -102,18 +109,27 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public HeapNode root() throws EmptyTreeException {
-        if (isEmpty()) {
+        if (isEmpty()) { // root == null
             throw new EmptyTreeException("Puu on tyhjä.");
         }
         return root;
     }
 
     @Override
-    public HeapNode parent(HeapNode v) throws Exception {
-        if (!isRoot(v)) {
-            return v.getParent();
+    public HeapNode parent(HeapNode v) throws InvalidPositionException,
+            BoundaryViolationException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode parent = checkPosition.getParent();
+        if (parent == null) {
+            throw new BoundaryViolationException("Vanhempaa ei ole.");
         }
-        throw new Exception("Kyseessä on juuri.");
+        return parent;
+
+//        if (!isRoot(v)) {
+//            return v.getParent();
+//        }
+//        throw new Exception("Kyseessä on juuri.");
+//        return null;
     }
 
     @Override
@@ -128,23 +144,28 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public boolean isInternal(HeapNode v) {
-        return !isExternal(v); // Kun solmu ei ole ulkosolmu, se on sisäsolmu.
+    public boolean isInternal(HeapNode v) throws InvalidPositionException {
+//        return !isExternal(v); // Kun solmu ei ole ulkosolmu, se on sisäsolmu.
+        checkPosition(v);
+        return hasLeft(v) || hasRight(v);
     }
 
     @Override
-    public boolean isExternal(HeapNode v) {
+    public boolean isExternal(HeapNode v) throws InvalidPositionException {
         // Solmu on ulkosolmu (=lehti), jos sillä ei ole lapsia.
-        if (v.getLeft() != null && v.getRight() != null) {
-            return v.getLeft().getKey() == 0 && v.getRight().getKey() == 0;
-        }
-        return v.getLeft() == null && v.getRight() == null;
+//        if (v.getLeft() != null && v.getRight() != null) {
+//            return v.getLeft().getKey() == 0 && v.getRight().getKey() == 0;
+//        }
+//        return v.getLeft() == null && v.getRight() == null;
+        return !isInternal(v);
     }
 
     @Override
-    public boolean isRoot(HeapNode v) {
-        return v.getParent() == null;
-        //return root.equals(v);
+    public boolean isRoot(HeapNode v) throws InvalidPositionException,
+            EmptyTreeException {
+//        return v.getParent() == null;
+        checkPosition(v);
+        return (v == root());
     }
 
     @Override
@@ -154,7 +175,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public boolean isEmpty() {
-        return root == null; // size == 0
+        return root == null; //  size == 0
     }
 
     @Override
@@ -198,13 +219,26 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public HeapNode leftChild(HeapNode v) {
-        return v.getLeft();
+    public HeapNode leftChild(HeapNode v) throws InvalidPositionException,
+            BoundaryViolationException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode left = checkPosition.getLeft();
+        if (left == null) {
+            throw new BoundaryViolationException("Vasenta lasta ei ole.");
+        }
+        return left;
+//        return v.getLeft();
     }
 
     @Override
-    public HeapNode rightChild(HeapNode v) {
-        return v.getRight();
+    public HeapNode rightChild(HeapNode v) throws InvalidPositionException,
+            BoundaryViolationException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode right = checkPosition.getRight();
+        if (right == null) {
+            throw new BoundaryViolationException("Oikeaa lasta ei ole.");
+        }
+        return right;
     }
 
     @Override
@@ -216,14 +250,20 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void expandExternal(HeapNode v) throws InvalidPositionException {
-        if (isInternal(v)) {
+    public void expandExternal(HeapNode v, HeapNode l, HeapNode r) throws
+            InvalidPositionException {
+        if (!isExternal(v)) {
             throw new InvalidPositionException("Kyseessä on sisäsolmu.");
         }
+        // Laajentaa ulkosolmun sisäsolmuun, jossa kaksi ulkosolmulasta.
+        insertLeft(v, l);
+        insertRight(v, r);
 //        if (isRoot(v)) {
-        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
-        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
-        size += 2;
+//...
+//        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
+//        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
+//        size += 2;
+//...
 //            return v;
 //        }
 //        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
@@ -258,4 +298,47 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
             return u;
         }
     }
+
+    public boolean hasLeft(HeapNode v) throws InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        return checkPosition.getLeft() != null;
+    }
+
+    public boolean hasRight(HeapNode v) throws InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        return checkPosition.getRight() != null;
+    }
+
+    public HeapNode insertLeft(HeapNode v, HeapNode l) throws
+            InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode left = checkPosition.getLeft();
+        if (left != null) {
+            throw new InvalidPositionException("Solmulla on jo vasen lapsi.");
+        }
+        HeapNode createNode = createNode(l, checkPosition, null, null);
+        checkPosition.setLeft(createNode);
+        size++;
+        return createNode;
+    }
+
+    public HeapNode insertRight(HeapNode v, HeapNode r) throws
+            InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode right = checkPosition.getRight();
+        if (right != null) {
+            throw new InvalidPositionException("Solmulla on jo oikea lapsi.");
+        }
+        HeapNode createNode = createNode(r, checkPosition, null, null);
+        checkPosition.setRight(createNode);
+        size++;
+        return createNode;
+    }
+
+    private HeapNode createNode(HeapNode element, HeapNode parent, HeapNode left,
+            HeapNode right) {
+        return new HeapNode(element.getKey(), element.getElement(), left, right,
+                parent);
+    }
+
 }

@@ -3,7 +3,7 @@
  *
  * @author ylhaart
  */
-public class InvalidKeyException extends Exception {
+public class InvalidKeyException extends RuntimeException {
 
     public InvalidKeyException() {
         super();

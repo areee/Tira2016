@@ -13,7 +13,8 @@ public interface BinaryTreeInterface extends SimpleTree {
      * @param v HeapNode
      * @return HeapNode
      */
-    public HeapNode leftChild(HeapNode v);
+    public HeapNode leftChild(HeapNode v) throws InvalidPositionException,
+            BoundaryViolationException;
 
     /**
      * Palauttaa solmun v oikean lapsen. Virhe esiintyy, mikäli v on lehti.
@@ -21,7 +22,8 @@ public interface BinaryTreeInterface extends SimpleTree {
      * @param v HeapNode
      * @return HeapNode
      */
-    public HeapNode rightChild(HeapNode v);
+    public HeapNode rightChild(HeapNode v) throws InvalidPositionException,
+            BoundaryViolationException;
 
     /**
      * Palauttaa solmun v sisaruksen. Virhe esiintyy, mikäli v on juuri.
@@ -36,9 +38,11 @@ public interface BinaryTreeInterface extends SimpleTree {
      * nämä solmun v lapsiksi. Virhe esiintyy, mikäli v on sisäsolmu.
      *
      * @param v HeapNode
+     * @param l HeapNode
+     * @param r HeapNode
      * @throws java.lang.Exception
      */
-    public void expandExternal(HeapNode v) throws Exception;
+    public void expandExternal(HeapNode v, HeapNode l, HeapNode r) throws Exception;
 
     /**
      * Poistaa lehden v ja tämän vanhemman u sekä sijoittaa v:n sisaruksen u:n

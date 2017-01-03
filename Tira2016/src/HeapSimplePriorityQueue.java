@@ -44,28 +44,44 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
         } else {
             z = last;
-//            last = z;
-            while (!T.isRoot(z) && !isLeftChild(z)) {
-                try {
-                    z = T.parent(z);
-                } catch (Exception ex) {
-                    System.out.println("Solmu on juuri:\n" + ex);
+            try {
+                //            last = z;
+                while (!T.isRoot(z) && !isLeftChild(z)) {
+                    try {
+                        z = T.parent(z);
+                    } catch (BoundaryViolationException | InvalidPositionException ex) {
+                        System.out.println("Solmu on juuri:\n" + ex);
+                    }
                 }
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            } catch (EmptyTreeException ex) {
+                System.out.println("Puu on tyhjä:\n" + ex);
             }
-            if (!T.isRoot(z)) {
-                try {
-                    z = T.rightChild(T.parent(z));
-                } catch (Exception ex) {
-                    System.out.println("Solmu on lehti:\n" + ex);
+            try {
+                if (!T.isRoot(z)) {
+                    try {
+                        z = T.rightChild(T.parent(z));
+                    } catch (BoundaryViolationException | InvalidPositionException ex) {
+                        System.out.println("Solmu on lehti:\n" + ex);
+                    }
                 }
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            } catch (EmptyTreeException ex) {
+                System.out.println("Puu on tyhjä:\n" + ex);
             }
-            while (!T.isExternal(z)) {
-                z = T.leftChild(z);
+            try {
+                while (!T.isExternal(z)) {
+                    z = T.leftChild(z);
+                }
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
         }
-        try {
-            T.expandExternal(z); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
-        } catch (Exception ex) {
+        try { // aseta null-arvot kuntoon!
+            T.expandExternal(z, new HeapNode(), new HeapNode()); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
+        } catch (InvalidPositionException ex) {
             System.out.println("Kyseessä on sisäsolmu:\n" + ex);
         }
         T.replace(z, new HeapNode(k, e));
@@ -73,17 +89,23 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         last = z;
 //        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
         HeapNode u = null;
-        while (!T.isRoot(z)) {
-            try {
-                u = T.parent(z);
-            } catch (Exception ex) {
-                System.out.println("Kyseessä on juuri:\n" + ex);
+        try {
+            while (!T.isRoot(z)) {
+                try {
+                    u = T.parent(z);
+                } catch (Exception ex) {
+                    System.out.println("Kyseessä on juuri:\n" + ex);
+                }
+                if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
+                    break;
+                }
+                T.swap(u, z);
+                z = u;
             }
-            if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
-                break;
-            }
-            T.swap(u, z);
-            z = u;
+        } catch (InvalidPositionException ex) {
+            System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+        } catch (EmptyTreeException ex) {
+            System.out.println("Puu on tyhjä:\n" + ex);
         }
         return z;
     }
@@ -99,6 +121,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         try {
             return T.leftChild(T.parent(p)).equals(p);
         } catch (Exception e) {
+            System.out.println("Poikkeus:\n" + e);
             return false;
         }
     }
@@ -114,11 +137,15 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             T.replace(min, null); // heap.remove()
         } else {
             T.replace(min, null); // heap.replace(heap.root(),heap.remove())
-            // downHeap(heap.root())
-            while (T.isInternal(min)) {
-                HeapNode s;
+            try {
+                // downHeap(heap.root())
+                while (T.isInternal(min)) {
+                    HeapNode s;
 //                if(!T.hasRightChild(min)){
 //                  s = T.leftChild(min);}
+                }
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
         }
         return min;

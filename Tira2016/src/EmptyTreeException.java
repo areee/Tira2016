@@ -3,7 +3,7 @@
  *
  * @author ylhaart
  */
-class EmptyTreeException extends Exception {
+public class EmptyTreeException extends RuntimeException {
 
     public EmptyTreeException() {
         super();

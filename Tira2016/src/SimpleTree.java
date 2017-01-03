@@ -13,6 +13,7 @@ public interface SimpleTree extends PositionalContainer {
      * Palauttaa puun T juurisolmun. Puun ollessa tyhjä esiintyy virhe.
      *
      * @return HeapNode
+     * @throws EmptyTreeException
      */
     public HeapNode root() throws EmptyTreeException;
 
@@ -38,24 +39,29 @@ public interface SimpleTree extends PositionalContainer {
      *
      * @param v HeapNode
      * @return boolean
+     * @throws InvalidPositionException
      */
-    public boolean isInternal(HeapNode v);
+    public boolean isInternal(HeapNode v) throws InvalidPositionException;
 
     /**
      * Testaa, onko solmu v ulkosolmu eli lehti.
      *
      * @param v HeapNode
      * @return boolean
+     * @throws InvalidPositionException
      */
-    public boolean isExternal(HeapNode v);
+    public boolean isExternal(HeapNode v) throws InvalidPositionException;
 
     /**
      * Testaa, onko solmu v juuri.
      *
      * @param v HeapNode
      * @return boolean
+     * @throws InvalidPositionException
+     * @throws EmptyTreeException
      */
-    public boolean isRoot(HeapNode v);
+    public boolean isRoot(HeapNode v) throws InvalidPositionException,
+            EmptyTreeException;
 
 
     /*
