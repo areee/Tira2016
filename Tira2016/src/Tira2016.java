@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /* Tietorakenteet-kurssin harjoitustyö
-(c)2016 Arttu Ylhävuori*/
+(c)2016-2017 Arttu Ylhävuori*/
 public class Tira2016 {
 
     public static void main(String[] args) {

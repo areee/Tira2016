@@ -16,9 +16,23 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * Kun luodaan uusi binääripuu, se on aluksi tyhjä (size = 0).
      */
     public BinaryTree() {
-        size = 1; // oli aiemmin 0
-        root = new HeapNode(0, null, null, null, null);
-//        root = null;
+        size = 0; // oli aiemmin 1
+//        root = new HeapNode(0, null, null, null, null);
+        root = null;
+    }
+
+    // Binääripuun luonti, jossa juuri on erikseen määritelty.
+    public BinaryTree(HeapNode element) {
+        size = 1;
+        root = element;
+    }
+
+    // Binääripuun luonti, jossa juuri on erikseen määritelty, samoin alipuut.
+    public BinaryTree(HeapNode element, BinaryTree leftTree, BinaryTree rightTree) {
+        size = 1;
+        root = element;
+        root.setLeft(leftTree.root);
+        root.setRight(rightTree.root);
     }
 
     /**
@@ -145,7 +159,10 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public Enumeration elements() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        HeapNode[] heapNodes = new HeapNode[size];
+        HeapNode rootNode = this.root;
+        // Kesken, tee loppuun!
+        return null;
     }
 
     @Override
@@ -162,9 +179,12 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public Object replace(HeapNode v, HeapNode e) {
-        HeapNode oldNode = v;
-        v = e;
-        return oldNode;
+//        HeapNode oldNode = v;
+//        v = e;
+//        return oldNode;
+        HeapNode newNode = new HeapNode(e.getKey(), e.getElement(), v.getLeft(), v.getRight(), v.getParent());
+        e = newNode;
+        return v;
     }
 
     @Override
@@ -196,14 +216,14 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void expandExternal(HeapNode v) throws Exception {
+    public void expandExternal(HeapNode v) throws InvalidPositionException {
         if (isInternal(v)) {
-            throw new Exception("Kyseessä on sisäsolmu.");
-        } else {
+            throw new InvalidPositionException("Kyseessä on sisäsolmu.");
+        }
 //        if (isRoot(v)) {
-            v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
-            v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
-            size += 2;
+        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
+        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
+        size += 2;
 //            return v;
 //        }
 //        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
@@ -211,7 +231,6 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //        HeapNode left = v.getLeft(); // oikeaan lapseen pitäisi myös varmaan asettaa...
 //
 //        return left;
-        }
     }
 
     @Override

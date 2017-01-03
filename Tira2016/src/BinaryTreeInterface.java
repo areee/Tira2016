@@ -47,6 +47,7 @@ public interface BinaryTreeInterface extends SimpleTree {
      *
      * @param v HeapNode
      * @return HeapNode
+     * @throws java.lang.Exception
      */
     public HeapNode removeAboveExternal(HeapNode v) throws Exception;
 }

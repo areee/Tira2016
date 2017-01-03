@@ -34,13 +34,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
         HeapNode z = new HeapNode(k, e, null, null, null);
 //        HeapNode z = null;
-        if (isEmpty()) {
-            try {
-                z = T.root();
-//            T.setRoot(z);
-            } catch (EmptyTreeException ex) {
-                System.out.println("Tyhjä jono:\n" + ex);
-            }
+        if (isEmpty()) { //root == null
+//            try {
+//                z = T.root();
+            T.setRoot(z);
+//            } catch (EmptyTreeException ex) {
+//                System.out.println("Tyhjä jono:\n" + ex);
+//            }
 
         } else {
             z = last;
