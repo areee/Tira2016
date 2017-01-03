@@ -15,7 +15,6 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     HeapNode last; // Viittaus keon T viimeisen solmun paikkaan.
     // Vertain, joka määrittelee avainten täydellisen järjestyksen relaation:
     Comparator comparator;
-//    private int size;
 
     /**
      * Keko, joka on toteutettu käyttäen linkitettyä binääripuuta. Kun luodaan
@@ -26,7 +25,6 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         T = new BinaryTree();
         last = null; // tyhjässä keossa ei ole vielä viimeistä solmua
         comparator = new Comparator();
-//        size = 0;
     }
 
     @Override
@@ -40,7 +38,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             try {
                 z = T.root();
 //            T.setRoot(z);
-            } catch (EmptyPriorityQueueException ex) {
+            } catch (EmptyTreeException ex) {
                 System.out.println("Tyhjä jono:\n" + ex);
             }
 
@@ -73,7 +71,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         T.replace(z, new HeapNode(k, e));
 //        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
         last = z;
-        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
+//        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
         HeapNode u = null;
         while (!T.isRoot(z)) {
             try {
@@ -106,9 +104,9 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public HeapNode removeMinElement() throws EmptyPriorityQueueException {
+    public HeapNode removeMinElement() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyPriorityQueueException("Jono on tyhjä.");
+            throw new EmptyTreeException("Jono on tyhjä.");
         }
         // Kesken! Tarkista, meneekö oikeaan suuntaan!
         HeapNode min = T.root();
@@ -127,17 +125,17 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public HeapNode minKey() throws EmptyPriorityQueueException {
+    public HeapNode minKey() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyPriorityQueueException("Jono on tyhjä.");
+            throw new EmptyTreeException("Jono on tyhjä.");
         }
         return T.root(); // T.root().getKey()
     }
 
     @Override
-    public HeapNode minElement() throws EmptyPriorityQueueException {
+    public HeapNode minElement() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyPriorityQueueException("Jono on tyhjä.");
+            throw new EmptyTreeException("Jono on tyhjä.");
         }
         return T.root();
     }

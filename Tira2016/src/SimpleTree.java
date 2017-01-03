@@ -14,7 +14,7 @@ public interface SimpleTree extends PositionalContainer {
      *
      * @return HeapNode
      */
-    public HeapNode root() throws EmptyPriorityQueueException;
+    public HeapNode root() throws EmptyTreeException;
 
     /**
      * Palauttaa solmun v vanhemman. Solmun v ollessa juuri esiintyy virhe.

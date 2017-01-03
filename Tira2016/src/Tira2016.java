@@ -63,7 +63,7 @@ public class Tira2016 {
                                 System.out.println(removeMinElement + " poistettu."); // aputuloste
                                 bw.write(removeMinElement + " poistettu.");
                                 bw.newLine();
-                            } catch (EmptyPriorityQueueException ex) {
+                            } catch (EmptyTreeException ex) {
                                 System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();
@@ -75,7 +75,7 @@ public class Tira2016 {
                                 System.out.println("Pienin alkio on " + minKey + "."); // aputuloste
                                 bw.write("Pienin alkio on " + minKey + ".");
                                 bw.newLine();
-                            } catch (EmptyPriorityQueueException ex) {
+                            } catch (EmptyTreeException ex) {
                                 System.out.println("Jono on tyhjä."); // aputuloste
                                 bw.write("Jono on tyhjä.");
                                 bw.newLine();

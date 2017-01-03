@@ -16,9 +16,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * Kun luodaan uusi binääripuu, se on aluksi tyhjä (size = 0).
      */
     public BinaryTree() {
-        size = 0;
-//        root = new HeapNode(0, null, null, null, null);
-        root = null;
+        size = 1; // oli aiemmin 0
+        root = new HeapNode(0, null, null, null, null);
+//        root = null;
     }
 
     /**
@@ -87,9 +87,9 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public HeapNode root() throws EmptyPriorityQueueException {
+    public HeapNode root() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyPriorityQueueException("Puu on tyhjä.");
+            throw new EmptyTreeException("Puu on tyhjä.");
         }
         return root;
     }
@@ -199,11 +199,11 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     public void expandExternal(HeapNode v) throws Exception {
         if (isInternal(v)) {
             throw new Exception("Kyseessä on sisäsolmu.");
-        }
+        } else {
 //        if (isRoot(v)) {
-        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
-        v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
-
+            v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
+            v.setRight(new HeapNode(0, null, null, null, v)); // asetetaan v:n oikea lapsi
+            size += 2;
 //            return v;
 //        }
 //        v.setLeft(new HeapNode(0, null, null, null, v)); // asetetaan v:n vasen lapsi
@@ -211,13 +211,32 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //        HeapNode left = v.getLeft(); // oikeaan lapseen pitäisi myös varmaan asettaa...
 //
 //        return left;
+        }
     }
 
     @Override
     public HeapNode removeAboveExternal(HeapNode v) throws Exception {
         if (isInternal(v)) {
             throw new Exception("Kyseessä on sisäsolmu.");
+        } else {
+            HeapNode u = parent(v);
+            HeapNode s = sibling(v);
+            if (isRoot(u)) {
+                // jos u on juuri, poistetaan se asettamalla v:n sisaruksen
+                // s vanhemmaksi null-viite ja s itse juureksi
+                s.setParent(null);
+                root = s;
+            } else {
+                HeapNode g = parent(u);
+                if (u == leftChild(g)) {
+                    g.setLeft(s);
+                } else {
+                    g.setRight(s);
+                    s.setParent(g);
+                }
+            }
+            size -= 2;
+            return u;
         }
-        return null;
     }
 }

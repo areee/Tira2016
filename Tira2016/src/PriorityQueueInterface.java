@@ -36,23 +36,23 @@ public interface PriorityQueueInterface {
      *
      * @return String
      */
-    public HeapNode minElement() throws EmptyPriorityQueueException;
+    public HeapNode minElement() throws EmptyTreeException;
 
     /**
      * Palauttaa P:n pienimmän avaimen. Virhe esiintyy prioriteettijonon ollessa
      * tyhjä.
      *
      * @return int
-     * @throws EmptyPriorityQueueException
+     * @throws EmptyTreeException
      */
-    public HeapNode minKey() throws EmptyPriorityQueueException;
+    public HeapNode minKey() throws EmptyTreeException;
 
     /**
      * Palauttaa ja poistaa P:stä alkion, jolla on pienin avain. Virhe esiintyy
      * prioriteettijonon ollessa tyhjä.
      *
      * @return HeapNode
-     * @throws EmptyPriorityQueueException
+     * @throws EmptyTreeException
      */
-    public HeapNode removeMinElement() throws EmptyPriorityQueueException;
+    public HeapNode removeMinElement() throws EmptyTreeException;
 }
