@@ -41,8 +41,9 @@ public interface PositionalContainer {
      *
      * @param v HeapNode
      * @param w HeapNode
+     * @throws InvalidPositionException
      */
-    public void swap(HeapNode v, HeapNode w);
+    public void swap(HeapNode v, HeapNode w) throws InvalidPositionException;
 
     /**
      * Korvaa solmun v alkion alkiolla e ja palauttaa aiemman alkion.
@@ -50,6 +51,7 @@ public interface PositionalContainer {
      * @param v HeapNode
      * @param e HeapNode
      * @return HeapNode v
+     * @throws InvalidPositionException
      */
-    public Object replace(HeapNode v, HeapNode e);
+    public Object replace(HeapNode v, KeyElementPair e) throws InvalidPositionException;
 }

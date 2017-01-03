@@ -84,7 +84,12 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         } catch (InvalidPositionException ex) {
             System.out.println("Kyseessä on sisäsolmu:\n" + ex);
         }
-        T.replace(z, new HeapNode(k, e));
+        try {
+//            T.replace(z, new HeapNode(k, e));
+            T.replace(z, new KeyElementPair(k, e));
+        } catch (InvalidPositionException ex) {
+            System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+        }
 //        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
         last = z;
 //        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
@@ -96,7 +101,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 } catch (Exception ex) {
                     System.out.println("Kyseessä on juuri:\n" + ex);
                 }
-                if (comparator.isLessThanOrEqualTo(u.getKey(), z.getKey())) {
+                if (comparator.isLessThanOrEqualTo(keyOfPosition(u),
+                        keyOfPosition(z))) {
                     break;
                 }
                 T.swap(u, z);
@@ -108,6 +114,10 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             System.out.println("Puu on tyhjä:\n" + ex);
         }
         return z;
+    }
+
+    private int keyOfPosition(HeapNode p) throws InvalidPositionException {
+        return p.getKey();
     }
 
     /**
@@ -134,9 +144,17 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         // Kesken! Tarkista, meneekö oikeaan suuntaan!
         HeapNode min = T.root();
         if (size() == 1) {
-            T.replace(min, null); // heap.remove()
+            try {
+                T.replace(min, null); // heap.remove()
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
         } else {
-            T.replace(min, null); // heap.replace(heap.root(),heap.remove())
+            try {
+                T.replace(min, null); // heap.replace(heap.root(),heap.remove())
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
             try {
                 // downHeap(heap.root())
                 while (T.isInternal(min)) {

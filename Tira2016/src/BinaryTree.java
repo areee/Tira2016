@@ -192,20 +192,40 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void swap(HeapNode v, HeapNode w) {
-        HeapNode tmp = v;
-        v = w;
-        w = tmp;
+    public void swap(HeapNode v, HeapNode w) throws InvalidPositionException {
+        //        HeapNode tmp = v;
+//        v = w;
+//        w = tmp;
+        HeapNode checkPosition1 = checkPosition(v);
+        HeapNode checkPosition2 = checkPosition(w);
+//        int key = w.getKey();
+//        String element = w.getElement();
+        KeyElementPair temp = w.getKeyAndElement();
+//        checkPosition2.setKey(v.getKey());
+//        checkPosition2.setElement(v.getElement());
+        checkPosition2.setKeyAndElement(v.getKey(), v.getElement());
+        checkPosition1.setKeyAndElement(temp.getKey(), temp.getElement());
+
     }
 
     @Override
-    public Object replace(HeapNode v, HeapNode e) {
+    public Object replace(HeapNode v, KeyElementPair e) throws InvalidPositionException {
 //        HeapNode oldNode = v;
 //        v = e;
 //        return oldNode;
-        HeapNode newNode = new HeapNode(e.getKey(), e.getElement(), v.getLeft(), v.getRight(), v.getParent());
-        e = newNode;
-        return v;
+//...
+//        HeapNode newNode = new HeapNode(e.getKey(), e.getElement(), v.getLeft(), v.getRight(), v.getParent());
+//        e = newNode;
+//        return v;
+//...
+        HeapNode checkPosition = checkPosition(v);
+        int key = v.getKey();
+        String element = v.getElement();
+        checkPosition.setKey(e.getKey());
+        checkPosition.setElement(e.getElement());
+
+        KeyElementPair oldKeyElementPair = new KeyElementPair(key, element);
+        return oldKeyElementPair;
     }
 
     @Override

@@ -1,8 +1,8 @@
 
 public class HeapNode {
 
-    private int key; // onko final?
-    private String element; // onko final?
+    private int key;
+    private String element;
     private HeapNode left;
     private HeapNode right;
     private HeapNode parent;
@@ -66,6 +66,15 @@ public class HeapNode {
     @Override
     public String toString() {
         return "(" + getKey() + "," + getElement() + ")"; //esim. (7,seiska)
+    }
+
+    public void setKeyAndElement(int key, String element) {
+        this.key = key;
+        this.element = element;
+    }
+
+    public KeyElementPair getKeyAndElement() {
+        return new KeyElementPair(key, element);
     }
 
 }
