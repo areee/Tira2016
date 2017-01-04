@@ -79,7 +79,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
-        }
+        } // end of: if !isEmpty() = else
         try { // aseta null-arvot kuntoon!
             T.expandExternal(z, new KeyElementPair(), new KeyElementPair()); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
         } catch (InvalidPositionException ex) {
@@ -92,6 +92,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             System.out.println("Ongelma solmun sijainnissa:\n" + ex);
         }
 //        T.replace(T.leftChild(z), new HeapNode(k, e)); // oli: z korvataan new HeapNode(k, e)
+
+//        } // end of: if !isEmpty() = else
         last = z;
 //        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
         HeapNode u = null;
@@ -131,7 +133,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     public boolean isLeftChild(HeapNode p) throws InvalidKeyException {
         try {
             return T.leftChild(T.parent(p)).equals(p);
-        } catch (Exception e) {
+        } catch (BoundaryViolationException | InvalidPositionException e) {
             System.out.println("Poikkeus:\n" + e);
             return false;
         }
@@ -187,7 +189,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     public String print() {
-        return null;
+        return "";
     }
 
     @Override

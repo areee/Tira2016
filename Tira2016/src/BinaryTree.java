@@ -170,7 +170,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     @Override
     public int size() {
-        return size;
+        return size / 2;
     }
 
     @Override

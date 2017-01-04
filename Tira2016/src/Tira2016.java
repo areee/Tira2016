@@ -28,11 +28,17 @@ public class Tira2016 {
 
                             if (values.length == 3) {
                                 try {
-                                    int parseInt = Integer.parseInt(values[1]);
-                                    HeapNode insertItem = hspq.insertItem(parseInt, values[2]);
-                                    System.out.println(insertItem + " lis.");// aputuloste
-                                    bw.write(insertItem + " lis.");
-                                    bw.newLine();
+                                    try {
+                                        int parseInt = Integer.parseInt(values[1]);
+                                        HeapNode insertItem = hspq.insertItem(parseInt, values[2]);
+                                        System.out.println(insertItem + " lis.");// aputuloste
+                                        bw.write(insertItem + " lis.");
+                                        bw.newLine();
+                                    } catch (NumberFormatException e) {
+                                        System.out.println("Virheellinen syöte."); // aputuloste
+                                        bw.write("Virheellinen syöte.");
+                                        bw.newLine();
+                                    }
                                 } catch (InvalidKeyException ex) {
                                     System.out.println("Virheellinen syöte."); // aputuloste
                                     bw.write("Virheellinen syöte.");

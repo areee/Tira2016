@@ -6,13 +6,12 @@ s
 m
 
 i 8 kasi
+s
+m
 i a bbb
+s
+m
 i 3 kolme
 s
 m
-p
-r
-s
-m
-p
 q
