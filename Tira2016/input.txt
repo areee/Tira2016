@@ -15,8 +15,4 @@ i 3 kolme
 s
 m
 p
-r
-s
-m
-p
 q

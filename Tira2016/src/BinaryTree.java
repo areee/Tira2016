@@ -296,9 +296,21 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return checkPosition.getLeft() != null;
     }
 
+    public boolean hasLeftNotZero(HeapNode v) throws InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode left = checkPosition.getLeft();
+        return left != null && left.getKey() != 0;
+    }
+
     public boolean hasRight(HeapNode v) throws InvalidPositionException {
         HeapNode checkPosition = checkPosition(v);
         return checkPosition.getRight() != null;
+    }
+
+    public boolean hasRightNotZero(HeapNode v) throws InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode right = checkPosition.getRight();
+        return right != null && right.getKey() != 0;
     }
 
     public HeapNode insertLeft(HeapNode v, KeyElementPair l) throws
@@ -358,14 +370,17 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //        if (hasRight(v)) {
 //            children.add(rightChild(v));
 //        }
-        Hashtable<HeapNode, HeapNode> children = new Hashtable<>();
-        if (hasLeft(v)) {
-            children.put(leftChild(v), leftChild(v));
-        }
-        if (hasRight(v)) {
-            children.put(rightChild(v), rightChild(v));
-        }
-        return children.elements();
+//        Hashtable<HeapNode, HeapNode> children = new Hashtable<>();
+//        if (hasLeftNotZero(v)) {
+//            children.put(leftChild(v), leftChild(v));
+//        }
+//        if (hasRightNotZero(v)) {
+//            children.put(rightChild(v), rightChild(v));
+//        }
+//        return children.elements();
+        Vector vector = new Vector();
+        // kesken...
+        return null;
     }
 
     /**
