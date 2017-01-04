@@ -88,16 +88,26 @@ public class Tira2016 {
                             }
                             break;
                         case "p":
-                            String print = hspq.print();
-                            if (print.isEmpty()) {
-                                System.out.println("Jono on tyhjä."); // aputuloste
-                                bw.write("Jono on tyhjä.");
-                                bw.newLine();
-                            } else {
+                            try {
+                                String print = hspq.print();
                                 System.out.println(print); // aputuloste
                                 bw.write(print);
                                 bw.newLine();
+                            } catch (EmptyTreeException ex) {
+                                System.out.println("Jono on tyhjä.\n" + ex); // aputuloste
+                                bw.write("Jono on tyhjä.");
+                                bw.newLine();
                             }
+                            String print = hspq.print();
+//                            if (print.isEmpty()) {
+//                                System.out.println("Jono on tyhjä."); // aputuloste
+//                                bw.write("Jono on tyhjä.");
+//                                bw.newLine();
+//                            } else {
+//                                System.out.println(print); // aputuloste
+//                                bw.write(print);
+//                                bw.newLine();
+//                            }
                             break;
                         case "q":
                             System.out.println("Ohjelma lopetettu."); // aputuloste

@@ -90,23 +90,6 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return h;
     }
 
-    /**
-     *
-     * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
-     * tämän alipuissa käymällä lapset rekursiivisesti läpi.
-     *
-     * @param T SimpleTree
-     * @param v HeapNode
-     */
-    public void preorderPrint(SimpleTree T, HeapNode v) {
-        System.out.println(T.element(v));
-        Enumeration children_of_v = T.children(v);
-        while (children_of_v.hasMoreElements()) {
-            HeapNode w = (HeapNode) children_of_v.nextElement();
-            preorderPrint(T, w);
-        }
-    }
-
     @Override
     public HeapNode root() throws EmptyTreeException {
         if (isEmpty()) { // root == null
@@ -234,8 +217,8 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public int element(HeapNode v) {
-        return v.getKey();
+    public String element(HeapNode v) {
+        return v.getElement();
     }
 
     @Override
@@ -368,6 +351,57 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         size = 1;
         root = createNode(e, null, null, null);
         return root;
+    }
+
+    /**
+     *
+     * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
+     * tämän alipuissa käymällä lapset rekursiivisesti läpi.
+     *
+     * @param T SimpleTree
+     * @param v HeapNode
+     */
+//    public void preorderPrint(SimpleTree T, HeapNode v) {
+//        System.out.println(T.element(v));
+//        Enumeration children_of_v = T.children(v);
+//        while (children_of_v.hasMoreElements()) {
+//            HeapNode w = (HeapNode) children_of_v.nextElement();
+//            preorderPrint(T, w);
+//        }
+//    }
+    /**
+     *
+     * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
+     * tämän alipuissa käymällä lapset rekursiivisesti läpi.
+     *
+     * @param T BinaryTree
+     * @param v HeapNode
+     * @param s String
+     * @return String
+     */
+    public String preorderPrint(BinaryTree T, HeapNode v, String s) {
+        String returningString = "";
+
+        int key = T.key(v);
+        returningString += key + " ";
+
+//        System.out.println(T.element(v));
+//        Enumeration children_of_v = T.children(v);
+//        while (children_of_v.hasMoreElements()) {
+//            HeapNode w = (HeapNode) children_of_v.nextElement();
+//            preorderPrint(T, w, returningString);
+//        }
+        return returningString;
+    }
+
+    /**
+     * Palauttaa avaimen kyseisestä solmusta.
+     *
+     * @param v HeapNode
+     * @return int
+     */
+    public int key(HeapNode v) {
+        return v.getKey();
     }
 
 }

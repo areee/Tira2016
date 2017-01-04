@@ -142,7 +142,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     @Override
     public HeapNode removeMinElement() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyTreeException("Jono on tyhjä.");
+            throw new EmptyTreeException("Puu on tyhjä.");
         }
         // Kesken! Tarkista, meneekö oikeaan suuntaan!
         HeapNode min = T.root();
@@ -175,7 +175,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     @Override
     public HeapNode minKey() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyTreeException("Jono on tyhjä.");
+            throw new EmptyTreeException("Puu on tyhjä.");
         }
         return T.root(); // T.root().getKey()
     }
@@ -183,13 +183,21 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     @Override
     public HeapNode minElement() throws EmptyTreeException {
         if (isEmpty()) {
-            throw new EmptyTreeException("Jono on tyhjä.");
+            throw new EmptyTreeException("Puu on tyhjä.");
         }
         return T.root();
     }
 
-    public String print() {
-        return "";
+    public String print() throws EmptyTreeException {
+        if (isEmpty()) {
+            throw new EmptyTreeException("Puu on tyhjä.");
+        }
+        String print = "";
+
+//        HeapNode root = T.root();
+//        int key = root.getKey();
+//        printPreOrder += key + "\n\t";
+        return T.preorderPrint(T, T.root(), print);
     }
 
     @Override

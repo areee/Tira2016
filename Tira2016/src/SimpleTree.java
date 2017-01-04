@@ -71,9 +71,9 @@ public interface SimpleTree extends PositionalContainer {
      * Palauttaa avaimen arvon kyseisestä solmusta.
      *
      * @param v HeapNode
-     * @return int
+     * @return String
      */
-    public int element(HeapNode v);
+    public String element(HeapNode v);
 
     /**
      * Palauttaa viittauksen puuhun, joka sisältää kyseisen solmun.
