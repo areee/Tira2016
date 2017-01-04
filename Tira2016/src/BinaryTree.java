@@ -39,7 +39,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
     private HeapNode checkPosition(Object v) throws InvalidPositionException {
         if (v == null || !(v instanceof HeapNode)) {
-            throw new InvalidPositionException("Sijainti ei kelpaa.");
+            throw new InvalidPositionException("Solmu ei kelpaa.");
         }
         return (HeapNode) v;
     }
@@ -357,7 +357,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public Enumeration children(HeapNode v) throws InvalidPositionException { // Enumeration vai Iterable<HeapNode>?
+    public Iterator<HeapNode> children(HeapNode v) throws InvalidPositionException { // Enumeration vai Iterable<HeapNode>?
 //        HeapNode[] heapNodes = new HeapNode[size];
 //        for (int i = 0; i < heapNodes.length; i++) {
 //            HeapNode heapNode = heapNodes[i];
@@ -390,14 +390,23 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //        }
 //        return heapNodes;
 //...
-        Vector vector = new Vector();
+//        Vector vector = new Vector();
+//        if (hasLeftNotZero(v)) {
+//            vector.add(leftChild(v));
+//        }
+//        if (hasRightNotZero(v)) {
+//            vector.add(rightChild(v));
+//        }
+//        return vector.elements();
+//...
+        List<HeapNode> heapNodes = new ArrayList<>();
         if (hasLeftNotZero(v)) {
-            vector.add(leftChild(v));
+            heapNodes.add(leftChild(v));
         }
         if (hasRightNotZero(v)) {
-            vector.add(rightChild(v));
+            heapNodes.add(rightChild(v));
         }
-        return vector.elements();
+        return heapNodes.iterator();
     }
 
     /**
@@ -408,6 +417,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @param T BinaryTree
      * @param v HeapNode
      * @param s String
+     * @param level int
      * @return String
      */
     public String preorderPrint(BinaryTree T, HeapNode v, String s, int level) {
@@ -425,15 +435,15 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
         s += sisennykset + key;
 
-        Enumeration children = null;
+        Iterator<HeapNode> children = null;
         try {
             children = T.children(v);
         } catch (InvalidPositionException ex) {
             System.out.println("Virhe solmun sijainnissa.");
         }
         level++;
-        while (children.hasMoreElements()) {
-            HeapNode nextElement = (HeapNode) children.nextElement();
+        while (children.hasNext()) {
+            HeapNode nextElement = (HeapNode) children.next();
             s = preorderPrint(T, nextElement, s, level);
         }
 //...

@@ -1,5 +1,6 @@
 
 import java.util.Enumeration;
+import java.util.Iterator;
 
 /**
  * Puun rajapinta. Laajentaa puun geneerisiä metodeja. Perustuu paikan (solmun)
@@ -33,7 +34,7 @@ public interface SimpleTree extends PositionalContainer {
      * @return Enumeration
      * @throws InvalidPositionException
      */
-    public Enumeration children(HeapNode v) throws InvalidPositionException;
+    public Iterator<HeapNode> children(HeapNode v) throws InvalidPositionException;
 
     /**
      * Testaa, onko solmu v sisäsolmu.
