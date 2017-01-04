@@ -1,5 +1,7 @@
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Binääripuu on järjestetty puu, jossa solmuilla on joko ei yhtään tai kaksi
@@ -378,9 +380,24 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //            children.put(rightChild(v), rightChild(v));
 //        }
 //        return children.elements();
+//...
+//        HeapNode[] heapNodes = new HeapNode[2];
+//        if (hasLeftNotZero(v)) {
+//            heapNodes[0] = leftChild(v);
+//        }
+//        if (hasRightNotZero(v)) {
+//            heapNodes[1] = rightChild(v);
+//        }
+//        return heapNodes;
+//...
         Vector vector = new Vector();
-        // kesken...
-        return null;
+        if (hasLeftNotZero(v)) {
+            vector.add(leftChild(v));
+        }
+        if (hasRightNotZero(v)) {
+            vector.add(rightChild(v));
+        }
+        return vector.elements();
     }
 
     /**
@@ -393,10 +410,20 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @param s String
      * @return String
      */
-    public String preorderPrint(BinaryTree T, HeapNode v, String s) {
+    public String preorderPrint(BinaryTree T, HeapNode v, String s, int level) {
 
         int key = T.key(v);
-        s += key + " ";
+        String sisennykset = "";
+
+        if (level != 0) {
+            sisennykset += "\n";
+        }
+
+        for (int i = 0; i < level; i++) {
+            sisennykset += "  ";
+        }
+
+        s += sisennykset + key;
 
         Enumeration children = null;
         try {
@@ -404,10 +431,23 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         } catch (InvalidPositionException ex) {
             System.out.println("Virhe solmun sijainnissa.");
         }
+        level++;
         while (children.hasMoreElements()) {
             HeapNode nextElement = (HeapNode) children.nextElement();
-            s = preorderPrint(T, nextElement, s);
+            s = preorderPrint(T, nextElement, s, level);
         }
+//...
+//        HeapNode[] children = null;
+//        try {
+//            children = T.children(v);
+//        } catch (InvalidPositionException ex) {
+//            System.out.println("Virhe solmun sijainnissa.");
+//        }
+//        
+//        for (HeapNode heapNode : children) {
+//            s = preorderPrint(T, heapNode, s);
+//        }
+
         return s;
     }
 

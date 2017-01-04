@@ -197,7 +197,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 //        HeapNode root = T.root();
 //        int key = root.getKey();
 //        printPreOrder += key + "\n\t";
-        return T.preorderPrint(T, T.root(), print);
+        return T.preorderPrint(T, T.root(), print, 0);
     }
 
     @Override
