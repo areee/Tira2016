@@ -1,5 +1,5 @@
 
-import java.util.Enumeration;
+import java.util.*;
 
 /**
  * Binääripuu on järjestetty puu, jossa solmuilla on joko ei yhtään tai kaksi
@@ -113,17 +113,6 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 //        }
 //        throw new Exception("Kyseessä on juuri.");
 //        return null;
-    }
-
-    @Override
-    public Enumeration children(HeapNode v) { // Enumeration vai HeapNode[]?
-//        HeapNode[] heapNodes = new HeapNode[size];
-//        for (int i = 0; i < heapNodes.length; i++) {
-//            HeapNode heapNode = heapNodes[i];
-//            
-//        }
-//        return heapNodes;
-        return null;
     }
 
     @Override
@@ -353,22 +342,32 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return root;
     }
 
-    /**
-     *
-     * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
-     * tämän alipuissa käymällä lapset rekursiivisesti läpi.
-     *
-     * @param T SimpleTree
-     * @param v HeapNode
-     */
-//    public void preorderPrint(SimpleTree T, HeapNode v) {
-//        System.out.println(T.element(v));
-//        Enumeration children_of_v = T.children(v);
-//        while (children_of_v.hasMoreElements()) {
-//            HeapNode w = (HeapNode) children_of_v.nextElement();
-//            preorderPrint(T, w);
+    @Override
+    public Enumeration children(HeapNode v) throws InvalidPositionException { // Enumeration vai Iterable<HeapNode>?
+//        HeapNode[] heapNodes = new HeapNode[size];
+//        for (int i = 0; i < heapNodes.length; i++) {
+//            HeapNode heapNode = heapNodes[i];
+//            
 //        }
-//    }
+//        return heapNodes;
+
+//        List<HeapNode> children = new ArrayList<>();
+//        if (hasLeft(v)) {
+//            children.add(leftChild(v));
+//        }
+//        if (hasRight(v)) {
+//            children.add(rightChild(v));
+//        }
+        Hashtable<HeapNode, HeapNode> children = new Hashtable<>();
+        if (hasLeft(v)) {
+            children.put(leftChild(v), leftChild(v));
+        }
+        if (hasRight(v)) {
+            children.put(rightChild(v), rightChild(v));
+        }
+        return children.elements();
+    }
+
     /**
      *
      * Kuljettaessa puuta esijärjestyksessä käydään ensin juuressa ja sitten
@@ -380,18 +379,21 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @return String
      */
     public String preorderPrint(BinaryTree T, HeapNode v, String s) {
-        String returningString = "";
 
         int key = T.key(v);
-        returningString += key + " ";
+        s += key + " ";
 
-//        System.out.println(T.element(v));
-//        Enumeration children_of_v = T.children(v);
-//        while (children_of_v.hasMoreElements()) {
-//            HeapNode w = (HeapNode) children_of_v.nextElement();
-//            preorderPrint(T, w, returningString);
-//        }
-        return returningString;
+        Enumeration children = null;
+        try {
+            children = T.children(v);
+        } catch (InvalidPositionException ex) {
+            System.out.println("Virhe solmun sijainnissa.");
+        }
+        while (children.hasMoreElements()) {
+            HeapNode nextElement = (HeapNode) children.nextElement();
+            s = preorderPrint(T, nextElement, s);
+        }
+        return s;
     }
 
     /**

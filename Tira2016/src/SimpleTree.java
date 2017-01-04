@@ -30,9 +30,10 @@ public interface SimpleTree extends PositionalContainer {
      * Palauttaa luettelon solmun v lapsista.
      *
      * @param v HeapNode
-     * @return HeapNode[]
+     * @return Enumeration
+     * @throws InvalidPositionException
      */
-    public Enumeration children(HeapNode v);
+    public Enumeration children(HeapNode v) throws InvalidPositionException;
 
     /**
      * Testaa, onko solmu v sisäsolmu.
