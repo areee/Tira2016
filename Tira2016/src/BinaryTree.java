@@ -270,7 +270,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void expandExternal(HeapNode v, HeapNode l, HeapNode r) throws
+    public void expandExternal(HeapNode v, KeyElementPair l, KeyElementPair r) throws
             InvalidPositionException {
         if (!isExternal(v)) {
             throw new InvalidPositionException("Kyseessä on sisäsolmu.");
@@ -329,7 +329,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return checkPosition.getRight() != null;
     }
 
-    public HeapNode insertLeft(HeapNode v, HeapNode l) throws
+    public HeapNode insertLeft(HeapNode v, KeyElementPair l) throws
             InvalidPositionException {
         HeapNode checkPosition = checkPosition(v);
         HeapNode left = checkPosition.getLeft();
@@ -342,7 +342,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return createNode;
     }
 
-    public HeapNode insertRight(HeapNode v, HeapNode r) throws
+    public HeapNode insertRight(HeapNode v, KeyElementPair r) throws
             InvalidPositionException {
         HeapNode checkPosition = checkPosition(v);
         HeapNode right = checkPosition.getRight();
@@ -355,7 +355,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return createNode;
     }
 
-    private HeapNode createNode(HeapNode element, HeapNode parent, HeapNode left,
+    private HeapNode createNode(KeyElementPair element, HeapNode parent, HeapNode left,
             HeapNode right) {
         return new HeapNode(element.getKey(), element.getElement(), left, right,
                 parent);
@@ -366,8 +366,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
             throw new NonEmptyTreeException("Puu ei ole tyhjä.");
         }
         size = 1;
-        // kesken...
-
+        root = createNode(e, null, null, null);
         return root;
     }
 

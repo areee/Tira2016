@@ -81,7 +81,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             }
         }
         try { // aseta null-arvot kuntoon!
-            T.expandExternal(z, new HeapNode(), new HeapNode()); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
+            T.expandExternal(z, new KeyElementPair(), new KeyElementPair()); // Onko z:n asettaminen tarpeen? z = T.expandExternal(z)
         } catch (InvalidPositionException ex) {
             System.out.println("Kyseessä on sisäsolmu:\n" + ex);
         }
