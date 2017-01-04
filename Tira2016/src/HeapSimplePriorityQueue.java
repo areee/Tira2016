@@ -32,12 +32,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Virheellinen syöte.");
         }
-        HeapNode z = new HeapNode(k, e, null, null, null);
-//        HeapNode z = null;
+//        HeapNode z = new HeapNode(k, e, null, null, null);
+        HeapNode z;
         if (isEmpty()) { //root == null
 //            try {
-//                z = T.root();
-            T.setRoot(z);
+//            z = T.root();
+//            T.setRoot(z);
+            z = T.addRoot(new KeyElementPair(k, e));
 //            } catch (EmptyTreeException ex) {
 //                System.out.println("Tyhjä jono:\n" + ex);
 //            }

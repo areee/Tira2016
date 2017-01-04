@@ -361,4 +361,14 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
                 parent);
     }
 
+    public HeapNode addRoot(KeyElementPair e) throws NonEmptyTreeException {
+        if (!isEmpty()) {
+            throw new NonEmptyTreeException("Puu ei ole tyhjä.");
+        }
+        size = 1;
+        // kesken...
+
+        return root;
+    }
+
 }
