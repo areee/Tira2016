@@ -1,9 +1,0 @@
-(7,seiska) lis.
-1
-Pienin alkio on (7,seiska).
-7
-(7,seiska) poistettu.
-Jono on tyhjä.
-Jono on tyhjä.
-Jono on tyhjä.
-Ohjelma lopetettu.

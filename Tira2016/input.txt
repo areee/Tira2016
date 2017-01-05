@@ -2,6 +2,18 @@ i 7 seiska
 s
 m
 p
+i 4 nelonen
+s
+m
+p
+i 8 kasi
+s
+m
+p
+i 3 kolme
+s
+m
+p
 r
 s
 m
