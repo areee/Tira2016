@@ -117,7 +117,12 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
 //        } // end of: if !isEmpty() = else
         last = z;
-//        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
+        z = bubbleUp(z);
+        return z;
+    }
+
+    private HeapNode bubbleUp(HeapNode z) {
+        //        T.setSize(T.size() + 1); // kasvatetaan keon kokoa yhdellä
         HeapNode u = null;
         try {
             while (!T.isRoot(z)) {
