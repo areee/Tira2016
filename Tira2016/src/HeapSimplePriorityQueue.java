@@ -174,10 +174,14 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
         // Pienimmän avaimen alkio on juuressa:
         HeapNode min = T.root();
+        HeapNode remove = null;
         // Jos alkio on keon ainoa solmu, riittää pelkästään poistaa solmu
         if (size() == 1) {
+
             try {
-                T.replace(min, null); // heap.remove()
+//                T.replace(min, null); // heap.remove()
+                remove = T.remove(min);
+                last = null;
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
@@ -200,7 +204,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
         }
-        return min;
+        return remove; // min
     }
 
     @Override
