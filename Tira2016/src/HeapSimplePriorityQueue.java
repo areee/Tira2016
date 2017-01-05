@@ -168,11 +168,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public HeapNode removeMinElement() throws EmptyTreeException {
+        // Jos tyhjä, ei voida poistaa:
         if (isEmpty()) {
             throw new EmptyTreeException("Puu on tyhjä.");
         }
-        // Kesken! Tarkista, meneekö oikeaan suuntaan!
+        // Pienimmän avaimen alkio on juuressa:
         HeapNode min = T.root();
+        // Jos alkio on keon ainoa solmu, riittää pelkästään poistaa solmu
         if (size() == 1) {
             try {
                 T.replace(min, null); // heap.remove()
@@ -180,6 +182,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
         } else {
+
+            // 
             try {
                 T.replace(min, null); // heap.replace(heap.root(),heap.remove())
             } catch (InvalidPositionException ex) {

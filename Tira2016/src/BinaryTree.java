@@ -471,4 +471,40 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return v.getKey();
     }
 
+    public HeapNode remove(HeapNode v) throws InvalidPositionException {
+        HeapNode checkPosition = checkPosition(v);
+        HeapNode left = checkPosition.getLeft();
+        HeapNode right = checkPosition.getRight();
+
+        if (left != null && right != null) {
+            throw new InvalidPositionException("Ei voida poistaa, sillä solmussa on kaksi lasta");
+        }
+        HeapNode removeNode;
+        if (left != null) {
+            removeNode = left;
+        } else if (right != null) {
+            removeNode = right;
+        } else {
+            removeNode = null;
+        }
+        if (checkPosition == root) {
+            if (removeNode != null) {
+                removeNode.setParent(null);
+            }
+            root = removeNode;
+        } else {
+            HeapNode parent = checkPosition.getParent();
+            if (checkPosition == parent.getLeft()) {
+                parent.setLeft(removeNode);
+            } else {
+                parent.setRight(removeNode);
+            }
+            if (removeNode != null) {
+                removeNode.setParent(parent);
+            }
+        }
+        size--;
+        return v;
+    }
+
 }
