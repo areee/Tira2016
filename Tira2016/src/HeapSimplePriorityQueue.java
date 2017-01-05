@@ -27,10 +27,29 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         comparator = new Comparator();
     }
 
+    public boolean isAlreadyInBT(int key) {
+
+        String print = "";
+        print = T.preorderPrint(T, T.root(), print, 0);
+        String[] split = print.split("\n");
+
+        for (String string : split) {
+            String[] split1 = string.split("  ");
+
+            for (String string1 : split1) {
+                if (string1.equals("" + key)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public HeapNode insertItem(int k, String e) throws InvalidKeyException { // Onko poikkeus ok?
         if (!comparator.isComparable(k)) {
-            throw new InvalidKeyException("Virheellinen syöte.");
+            throw new InvalidKeyException("Avain ei kelpaa.");
         }
 //        HeapNode z = new HeapNode(k, e, null, null, null);
         HeapNode z;
@@ -44,6 +63,9 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 //            }
 
         } else {
+            if (isAlreadyInBT(k)) {
+                throw new InvalidKeyException("Avain ei kelpaa");
+            }
             z = last;
             try {
                 //            last = z;

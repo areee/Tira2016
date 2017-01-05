@@ -23,4 +23,8 @@ i 3 kolme
 s
 m
 p
+i 4 nelonen
+s
+m
+p
 q

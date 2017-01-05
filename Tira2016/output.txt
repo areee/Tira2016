@@ -7,33 +7,36 @@ Pienin alkio on (7,seiska).
 Pienin alkio on (4,nelonen).
 4
   7
-(7,seiska) lis.
-3
+Virheellinen syöte.
+2
 Pienin alkio on (4,nelonen).
 4
-  7
   7
 Virheellinen syöte.
 (8,kasi) lis.
-4
+3
 Pienin alkio on (4,nelonen).
 4
   7
-    8
-  7
+  8
 Virheellinen syöte.
-4
+3
 Pienin alkio on (4,nelonen).
 4
   7
-    8
-  7
+  8
 (3,kolme) lis.
-5
+4
 Pienin alkio on (3,kolme).
 3
   4
-    8
     7
-  7
+  8
+Virheellinen syöte.
+4
+Pienin alkio on (3,kolme).
+3
+  4
+    7
+  8
 Ohjelma lopetettu.
