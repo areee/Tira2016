@@ -1,4 +1,5 @@
 
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -166,6 +167,22 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
     }
 
+    /**
+     * Selvittää, onko annettu solmu p oikea lapsi.
+     *
+     * @param p HeapNode
+     * @return boolean
+     * @throws InvalidKeyException
+     */
+    public boolean isRightChild(HeapNode p) throws InvalidKeyException {
+        try {
+            return T.rightChild(T.parent(p)).equals(p);
+        } catch (BoundaryViolationException | InvalidPositionException e) {
+            System.out.println("Poikkeus:\n" + e);
+            return false;
+        }
+    }
+
     @Override
     public HeapNode removeMinElement() throws EmptyTreeException {
         // Jos tyhjä, ei voida poistaa:
@@ -173,13 +190,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             throw new EmptyTreeException("Puu on tyhjä.");
         }
         // Pienimmän avaimen alkio on juuressa:
-        HeapNode r = T.root();
+        HeapNode removedRoot = T.root();
         // Jos alkio on keon ainoa solmu, riittää pelkästään poistaa solmu:
         if (size() == 1) {
 
             try {
 //                T.replace(min, null); // heap.remove()
-                T.remove2(r);
+                T.remove2(removedRoot);
                 last = null;
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
@@ -190,46 +207,100 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
          */ else {
             HeapNode w = last;
             try {
-                T.swap(r, w);
+                T.swap(removedRoot, w);
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
-            r = w;
+            removedRoot = w;
             try {
-                T.remove2(r); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
+                T.remove2(removedRoot); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
             // etsitään uusi last-solmu:
-            try {
-                while (!T.isRoot(r) && !isLeftChild(r)) {
-                    r = T.parent(r);
+
+            if (isRightChild(removedRoot)) {
+                HeapNode parent = removedRoot.getParent();
+                HeapNode left = parent.getLeft();
+                last = left;
+            } else {
+                try {
+                    while (!T.isRoot(removedRoot) && (!isLeftChild(removedRoot) && !isRightChild(removedRoot))) {
+                        removedRoot = T.parent(removedRoot);
+                    }
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+                }
+                try {
+                    if (!T.isRoot(removedRoot) && isLeftChild(removedRoot)) {
+                        removedRoot = T.rightChild(T.parent(removedRoot));
+                    } else { // !T.isRoot(r) && isRightChild(r)
+                        removedRoot = T.leftChild(T.parent(removedRoot));
+                    }
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+                }
+
+                try {
+                    while (!isExternal_KeyZeroRight(removedRoot)) { // removedRoot.getRight().getKey() != 0
+                        removedRoot = T.rightChild(removedRoot);
+                    }
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+                }
+                last = removedRoot;
+            }
+            /*2.) Tee Down-heap bubbling.*/ // kesken, tee valmiiksi!
+            // ...
+            HeapNode r = T.root();
+            HeapNode s = null;
+
+            try { // testaa, toimiiko!
+                while (!T.isExternal(r)) { // niin kauan kuin juuri on sisäsolmu:
+
+                    if (!T.hasRight(r)) {
+                        s = r.getLeft();
+                    } else {
+                        HeapNode left = r.getLeft();
+                        HeapNode right = r.getRight();
+                        if (comparator.isLessThan(keyOfPosition(left), keyOfPosition(right))) {
+                            s = left;
+                        } else {
+                            s = right;
+                        }
+                    }
+
+                    if (comparator.isLessThan(keyOfPosition(r), keyOfPosition(s))) {
+                        break;
+                    }
+                    T.swap(r, s);
+                    r = s;
                 }
             } catch (InvalidPositionException ex) {
-                System.out.println("Solmu on juuri:\n" + ex);
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
 
-            // kesken, tee valmiiksi!
-            /*2.) Tee Down-heap bubbling.*/
-            // kesken, tee valmiiksi!
             // ...
             //            try {
-//                T.replace(min, null); // heap.replace(heap.root(),heap.remove())
-//            } catch (InvalidPositionException ex) {
-//                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
-//            }
-//            try {
-//                // downHeap(heap.root())
-//                while (T.isInternal(min)) {
-//                    HeapNode s;
-////                if(!T.hasRightChild(min)){
-////                  s = T.leftChild(min);}
-//                }
-//            } catch (InvalidPositionException ex) {
-//                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
-//            }
+            //                T.replace(min, null); // heap.replace(heap.root(),heap.remove())
+            //            } catch (InvalidPositionException ex) {
+            //                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            //            }
+            //            try {
+            //                // downHeap(heap.root())
+            //                while (T.isInternal(min)) {
+            //                    HeapNode s;
+            ////                if(!T.hasRightChild(min)){
+            ////                  s = T.leftChild(min);}
+            //                }
+            //            } catch (InvalidPositionException ex) {
+            //                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            //            }
+            {
+
+            }
         }
-        return r;
+        return removedRoot;
     }
 
     @Override
@@ -268,5 +339,13 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     @Override
     public boolean isEmpty() {
         return T.isEmpty(); // last == 0 // T.size() == 0
+    }
+
+    public boolean isExternal_KeyZeroRight(HeapNode v) {
+        return v.getRight().getKey() == 0;
+    }
+
+    public boolean isExternal_KeyZeroLeft(HeapNode v) {
+        return v.getLeft().getKey() == 0;
     }
 }
