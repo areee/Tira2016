@@ -1,6 +1,4 @@
 
-import java.util.Enumeration;
-
 /**
  * Puun rajapinta. Puun geneeriset metodit.
  *
@@ -21,20 +19,6 @@ public interface PositionalContainer {
      * @return boolean
      */
     public boolean isEmpty();
-
-    /**
-     * Palauttaa kaikki puun T solmuihin talletetut alkiot luettelona.
-     *
-     * @return HeapNode[]
-     */
-    public Enumeration elements();
-
-    /**
-     * Palauttaa puun T kaikkien solmujen (paikkojen) luettelon.
-     *
-     * @return HeapNode[]
-     */
-    public Enumeration positions();
 
     /**
      * Vaihtaa keon T solmujen v ja w alkiot keskenään.

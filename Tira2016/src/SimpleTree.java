@@ -1,5 +1,4 @@
 
-import java.util.Enumeration;
 import java.util.Iterator;
 
 /**
@@ -65,22 +64,11 @@ public interface SimpleTree extends PositionalContainer {
     public boolean isRoot(HeapNode v) throws InvalidPositionException,
             EmptyTreeException;
 
-
-    /*
---------------------------------------------------------------------------------
-     */
     /**
-     * Palauttaa avaimen arvon kyseisestä solmusta.
+     * Palauttaa merkkijonon annetulle solmulle.
      *
      * @param v HeapNode
      * @return String
      */
     public String element(HeapNode v);
-
-    /**
-     * Palauttaa viittauksen puuhun, joka sisältää kyseisen solmun.
-     *
-     * @return BinaryTree
-     */
-    public BinaryTree container();
 }
