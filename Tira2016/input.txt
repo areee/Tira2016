@@ -1,16 +1,16 @@
 i 2 kakkonen
-s
-m
-p
 i 4 nelonen
-s
-m
-p
-i 2 hahaa
-s
-m
-p
 i 5 vitonen
+i 1 yksi
+i 9 ysi
+s
+m
+p
+r
+s
+m
+p
+r
 s
 m
 p

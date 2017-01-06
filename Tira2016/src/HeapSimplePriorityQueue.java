@@ -1,4 +1,7 @@
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Prioriteettijonon abstraktin tietotyypin toteutus kekona.
  *
@@ -26,24 +29,30 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public HeapNode insertItem(int k, String e) throws InvalidKeyException {
+        // Jos vertaimen mukaan avain ei ole vertailtavissa:
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Avain ei kelpaa.");
         }
+        // Jos avain on vertailtavissa:
         HeapNode z;
 
+        // Jos keko on ennestään tyhjä:
         if (isEmpty()) { //root == null
             z = T.addRoot(new KeyElementPair(k, e));
-        } else {
-            /* Jos avain löytyy jo keosta:*/
+        } // Jos keko ei ole tyhjä:
+        else {
+            // Jos avain löytyy jo keosta:
             if (keyIsAlreadyInBT(k)) {
                 throw new InvalidKeyException("Avain on jo keossa.");
             } else if (keyIsZero(k)) {
-                /*Jos avain on nolla:*/
+                // Jos avain on nolla:
                 throw new InvalidKeyException("Avain on nolla.");
             }
             z = last;
             try {
+                // Etsitään uusi lisäyspaikka käyttäen apuna last-solmua:
                 while (!T.isRoot(z) && !isLeftChild(z)) {
+                    // Ei juuri ja ei vasen lapsi:
                     try {
                         z = T.parent(z);
                     } catch (BoundaryViolationException
@@ -180,7 +189,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
     @Override
     public HeapNode removeMinElement() throws EmptyTreeException {
-        // Jos tyhjä, ei voida poistaa:
+        // Jos keko on tyhjä, ei voida poistaa:
         if (isEmpty()) {
             throw new EmptyTreeException("Puu on tyhjä.");
         }
@@ -270,17 +279,19 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 } catch (InvalidPositionException ex) {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
-                /*2.) Tee Down-heap bubbling.*/ // kesken, tee valmiiksi!
+                /* 2.) Tee Down-heap bubbling.*/
 
                 HeapNode r = T.root();
                 HeapNode s;
-                try { // testaa, toimiiko!
+                try {
+                    /* Niin kauan kuin r on sisäsolmu (eli jomman kumman lapsen 
+                    avain ei ole nolla):*/
                     while (!T.isExternal_KeyZeroLeft(r)
-                            && !T.isExternal_KeyZeroRight(r)) { // niin kauan kuin juuri on sisäsolmu:
+                            || !T.isExternal_KeyZeroRight(r)) {
 
                         /*Jos juuren r vasen lapsi on sen ainoa lapsisolmu, olkoon
                         s juuren r vasen lapsi.*/
-                        if (!T.hasRight(r)) {
+                        if (!T.hasRightNotZero(r)) {
                             s = r.getLeft();
                         } else { // juurella on myös oikea lapsi
                             HeapNode left = r.getLeft();
@@ -303,6 +314,14 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 } catch (InvalidPositionException ex) {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
+
+//                try {
+//                    if (!T.isExternal_KeyZeroLeft(r)) {
+//
+//                    }
+//                } catch (InvalidPositionException ex) {
+//                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+//                }
                 break;
         }
         return removedRoot;
