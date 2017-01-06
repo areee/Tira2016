@@ -166,19 +166,19 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void swap(HeapNode v, HeapNode w) throws InvalidPositionException {
+    public void swap(HeapNode r, HeapNode w) throws InvalidPositionException {
         //        HeapNode tmp = v;
 //        v = w;
 //        w = tmp;
-        HeapNode checkPosition1 = checkPosition(v);
-        HeapNode checkPosition2 = checkPosition(w);
+        HeapNode r1 = checkPosition(r);
+        HeapNode w1 = checkPosition(w);
 //        int key = w.getKey();
 //        String element = w.getElement();
         KeyElementPair temp = w.getKeyAndElement();
 //        checkPosition2.setKey(v.getKey());
 //        checkPosition2.setElement(v.getElement());
-        checkPosition2.setKeyAndElement(v.getKey(), v.getElement());
-        checkPosition1.setKeyAndElement(temp.getKey(), temp.getElement());
+        w1.setKeyAndElement(r.getKey(), r.getElement());
+        r1.setKeyAndElement(temp.getKey(), temp.getElement());
 
     }
 
@@ -471,64 +471,103 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         return v.getKey();
     }
 
-    public HeapNode remove(HeapNode v) throws InvalidPositionException {
-        HeapNode checkPosition = checkPosition(v);
-        HeapNode left = checkPosition.getLeft();
-        HeapNode right = checkPosition.getRight();
-
-        if (left.getKey() != 0 && right.getKey() != 0) {
-//        if (left != null && right != null) {
-            throw new InvalidPositionException("Ei voida poistaa, sillä solmussa on kaksi lasta.");
-        }
-        HeapNode helpNode;
-        if (left.getKey() != 0) {
-//        if (left != null) {
-            helpNode = left;
-        } else if (right.getKey() != 0) {
-//            } else if (right != null) {
-            helpNode = right;
-        } else {
-            helpNode = null;
-        }
-        if (checkPosition == root) {
-            if (helpNode != null) {
-                helpNode.setParent(null);
-            }
-            root = helpNode;
-        } else {
-            HeapNode parent = checkPosition.getParent();
-            if (checkPosition == parent.getLeft()) {
-                parent.setLeft(helpNode);
-            } else {
-                parent.setRight(helpNode);
-            }
-            if (helpNode != null) {
-                helpNode.setParent(parent);
-            }
-        }
-        size -= 3;
-        return v;
-    }
-
-    public HeapNode remove2(HeapNode v) throws InvalidPositionException {
-        HeapNode checkPosition = checkPosition(v);
-        HeapNode left = checkPosition.getLeft();
-        HeapNode right = checkPosition.getRight();
+//    public HeapNode remove(HeapNode v) throws InvalidPositionException {
+//        HeapNode checkPosition = checkPosition(v);
+//        HeapNode left = checkPosition.getLeft();
+//        HeapNode right = checkPosition.getRight();
+//
+//        if (left.getKey() != 0 && right.getKey() != 0) {
+////        if (left != null && right != null) {
+//            throw new InvalidPositionException("Ei voida poistaa, sillä solmussa on kaksi lasta.");
+//        }
+//        HeapNode helpNode;
+//        if (left.getKey() != 0) {
+////        if (left != null) {
+//            helpNode = left;
+//        } else if (right.getKey() != 0) {
+////            } else if (right != null) {
+//            helpNode = right;
+//        } else {
+//            helpNode = null;
+//        }
+//        if (checkPosition == root) {
+//            if (helpNode != null) {
+//                helpNode.setParent(null);
+//            }
+//            root = helpNode;
+//        } else {
+//            HeapNode parent = checkPosition.getParent();
+//            if (checkPosition == parent.getLeft()) {
+//                parent.setLeft(helpNode);
+//            } else {
+//                parent.setRight(helpNode);
+//            }
+//            if (helpNode != null) {
+//                helpNode.setParent(parent);
+//            }
+//        }
+//        size -= 3;
+//        return v;
+//    }
+    public HeapNode remove(HeapNode r) throws InvalidPositionException {
+        HeapNode r1 = checkPosition(r);
+        HeapNode left = r1.getLeft();
+        HeapNode right = r1.getRight();
         if (left.getKey() != 0 && right.getKey() != 0) {
             throw new InvalidPositionException("Ei voida poistaa, sillä solmussa on kaksi lasta.");
         }
         HeapNode helpNode = null;
 
-        if (checkPosition == root) {
+        if (r1 == root) {
             root = helpNode;
             size = 0;
         } else { // poistettava solmu ei ole juuri
-            HeapNode parent = checkPosition.getParent();
-            left.setParent(parent);
-            parent.setLeft(left);
+            HeapNode parent = r1.getParent();
+            if (isLeftChild(r1)) {
+                left.setParent(parent);
+                parent.setLeft(left);
+            } else {
+                right.setParent(parent);
+                parent.setRight(right);
+            }
+
             size -= 2;
         }
-        return v;
+        return r;
+    }
+
+    /**
+     * Selvittää, onko annettu solmu p vasen lapsi.
+     *
+     * @param p HeapNode
+     * @return boolean
+     * @throws InvalidPositionException
+     */
+    public boolean isLeftChild(HeapNode p) throws BoundaryViolationException, InvalidPositionException {
+        return leftChild(parent(p)).equals(p);
+//        return p.getParent().getLeft().equals(p);
+    }
+
+    /**
+     * Selvittää, onko annettu solmu p oikea lapsi.
+     *
+     * @param p HeapNode
+     * @return boolean
+     * @throws InvalidPositionException
+     */
+    public boolean isRightChild(HeapNode p) throws BoundaryViolationException, InvalidPositionException {
+        return rightChild(parent(p)).equals(p);
+//        return p.getParent().getRight().equals(p);
+    }
+
+    public boolean isExternal_KeyZeroRight(HeapNode v) throws InvalidPositionException {
+        checkPosition(v);
+        return v.getRight().getKey() == 0;
+    }
+
+    public boolean isExternal_KeyZeroLeft(HeapNode v) throws InvalidPositionException {
+        checkPosition(v);
+        return v.getLeft().getKey() == 0;
     }
 
 }

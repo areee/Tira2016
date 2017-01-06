@@ -1,5 +1,4 @@
 
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -163,10 +162,16 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
      * @throws InvalidKeyException
      */
     public boolean isLeftChild(HeapNode p) throws InvalidKeyException {
+        //        try {
+//            return T.leftChild(T.parent(p)).equals(p);
+//        } catch (BoundaryViolationException | InvalidPositionException e) {
+//            System.out.println("Poikkeus:\n" + e);
+//            return false;
         try {
-            return T.leftChild(T.parent(p)).equals(p);
-        } catch (BoundaryViolationException | InvalidPositionException e) {
-            System.out.println("Poikkeus:\n" + e);
+            return T.isLeftChild(p);
+
+        } catch (BoundaryViolationException | InvalidPositionException ex) {
+            System.out.println("Poikkeus:\n" + ex);
             return false;
         }
     }
@@ -179,10 +184,17 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
      * @throws InvalidKeyException
      */
     public boolean isRightChild(HeapNode p) throws InvalidKeyException {
+//        try {
+//            return T.rightChild(T.parent(p)).equals(p);
+//        } catch (BoundaryViolationException | InvalidPositionException e) {
+//            System.out.println("Poikkeus:\n" + e);
+//            return false;
+//        }
+
         try {
-            return T.rightChild(T.parent(p)).equals(p);
-        } catch (BoundaryViolationException | InvalidPositionException e) {
-            System.out.println("Poikkeus:\n" + e);
+            return T.isRightChild(p);
+        } catch (BoundaryViolationException | InvalidPositionException ex) {
+            System.out.println("Poikkeus:\n" + ex);
             return false;
         }
     }
@@ -195,21 +207,19 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
         // Pienimmän avaimen alkio on juuressa:
         HeapNode removedRoot = T.root();
+        HeapNode w = last;
         // Jos alkio on keon ainoa solmu, riittää pelkästään poistaa solmu:
         if (size() == 1) {
 
             try {
 //                T.replace(min, null); // heap.remove()
-                T.remove2(removedRoot);
+                T.remove(removedRoot);
                 last = null;
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
-        } /*1.) Jos alkio ei ole keon ainoa solmu, haetaan keon viimeinen solmu, 
-        siirretään sen avain-alkio -pari juureen ja poistetaan viimeinen solmu.
-        Tämän jälkeen viittaus viimeiseen solmuun on päivitettävä.
-         */ else {
-            HeapNode w = last;
+        } else if (size() == 2) {
+
             try {
                 T.swap(removedRoot, w);
             } catch (InvalidPositionException ex) {
@@ -217,17 +227,37 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             }
             removedRoot = w;
             try {
-                T.remove2(removedRoot); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
+                T.remove(removedRoot); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
             } catch (InvalidPositionException ex) {
                 System.out.println("Ongelma solmun sijainnissa:\n" + ex);
             }
+            last = T.root();
+
+        } /*1.) Jos alkio ei ole keon ainoa solmu, haetaan keon viimeinen solmu, 
+        siirretään sen avain-alkio -pari juureen ja poistetaan viimeinen solmu.
+        Tämän jälkeen viittaus viimeiseen solmuun on päivitettävä.
+         */ else {
+            try {
+                T.swap(removedRoot, w);
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
+            removedRoot = w;
+//            try {
+//                T.remove2(removedRoot); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
+//            } catch (InvalidPositionException ex) {
+//                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+//            }
             // etsitään uusi last-solmu:
 
+            /* Jos removedRoot on oikeanpuoleinen lapsi, asetetaan last-muuttuja
+            sen vanhemman vasemmanpuoleiseen lapseen.*/
             if (isRightChild(removedRoot)) {
                 HeapNode parent = removedRoot.getParent();
                 HeapNode left = parent.getLeft();
                 last = left;
             } else {
+                /* removedRoot on itse vasemmanpuoleinen lapsi vanhempaansa nähden.*/
                 try {
                     while (!T.isRoot(removedRoot) && (!isLeftChild(removedRoot) && !isRightChild(removedRoot))) {
                         removedRoot = T.parent(removedRoot);
@@ -246,7 +276,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 }
 
                 try {
-                    while (!isExternal_KeyZeroRight(removedRoot)) { // removedRoot.getRight().getKey() != 0
+                    while (!T.isExternal_KeyZeroRight(removedRoot)) { // removedRoot.getRight().getKey() != 0
                         removedRoot = T.rightChild(removedRoot);
                     }
                 } catch (InvalidPositionException ex) {
@@ -254,20 +284,32 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 }
                 last = removedRoot;
             }
+
+            try {
+                T.remove(removedRoot); // tämän jälkeen vanha juuri on poistettu ja vanha last on uusi juuri
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
+
             /*2.) Tee Down-heap bubbling.*/ // kesken, tee valmiiksi!
             // ...
             HeapNode r = T.root();
             HeapNode s;
 
             try { // testaa, toimiiko!
-                while (!isExternal_KeyZeroLeft(r) && !isExternal_KeyZeroRight(r)) { // niin kauan kuin juuri on sisäsolmu:
+                while (!T.isExternal_KeyZeroLeft(r)
+                        && !T.isExternal_KeyZeroRight(r)) { // niin kauan kuin juuri on sisäsolmu:
 
+                    /*Jos juuren r vasen lapsi on sen ainoa lapsisolmu, olkoon 
+                    s juuren r vasen lapsi.*/
                     if (!T.hasRight(r)) {
                         s = r.getLeft();
-                    } else {
+                    } else { // juurella on myös oikea lapsi
                         HeapNode left = r.getLeft();
                         HeapNode right = r.getRight();
-                        if (comparator.isLessThan(keyOfPosition(left), keyOfPosition(right))) {
+                        // Jos vasen lapsi < oikea lapsi:
+                        if (comparator.isLessThan(keyOfPosition(left),
+                                keyOfPosition(right))) {
                             s = left;
                         } else {
                             s = right;
@@ -345,11 +387,4 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         return T.isEmpty(); // last == 0 // T.size() == 0
     }
 
-    public boolean isExternal_KeyZeroRight(HeapNode v) {
-        return v.getRight().getKey() == 0;
-    }
-
-    public boolean isExternal_KeyZeroLeft(HeapNode v) {
-        return v.getLeft().getKey() == 0;
-    }
 }

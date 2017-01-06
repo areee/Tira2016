@@ -1,0 +1,61 @@
+i 15 K
+s
+m
+p
+i 25 J
+s
+m
+p
+i 20 B
+s
+m
+p
+i 11 S
+s
+m
+p
+i 12 H
+s
+m
+p
+i 16 X
+s
+m
+p
+i 6 Z
+s
+m
+p
+i 4 C
+s
+m
+p
+i 5 A
+s
+m
+p
+i 13 W
+s
+m
+p
+i 7 Q
+s
+m
+p
+i 14 E
+s
+m
+p
+i 9 F
+s
+m
+p
+i 0 P
+s
+m
+p
+r
+s
+m
+p
+q
