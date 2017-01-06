@@ -28,7 +28,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         comparator = new Comparator();
     }
 
-    public boolean isAlreadyInBT(int key) {
+    public boolean keyIsAlreadyInBT(int key) {
 
         String print = "";
         print = T.preorderPrint(T, T.root(), print, 0);
@@ -45,6 +45,10 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         }
 
         return false;
+    }
+
+    public boolean keyIsZero(int key) {
+        return key == 0;
     }
 
     @Override
@@ -64,8 +68,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 //            }
 
         } else {
-            if (isAlreadyInBT(k)) {
-                throw new InvalidKeyException("Avain on jo puussa.");
+            if (keyIsAlreadyInBT(k) || keyIsZero(k)) {
+                throw new InvalidKeyException("Avain ei kelpaa.");
             }
             z = last;
             try {
