@@ -65,7 +65,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
         } else {
             if (isAlreadyInBT(k)) {
-                throw new InvalidKeyException("Avain ei kelpaa");
+                throw new InvalidKeyException("Avain on jo puussa.");
             }
             z = last;
             try {
@@ -253,10 +253,10 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
             /*2.) Tee Down-heap bubbling.*/ // kesken, tee valmiiksi!
             // ...
             HeapNode r = T.root();
-            HeapNode s = null;
+            HeapNode s;
 
             try { // testaa, toimiiko!
-                while (!T.isExternal(r)) { // niin kauan kuin juuri on sisäsolmu:
+                while (!isExternal_KeyZeroLeft(r) && !isExternal_KeyZeroRight(r)) { // niin kauan kuin juuri on sisäsolmu:
 
                     if (!T.hasRight(r)) {
                         s = r.getLeft();
