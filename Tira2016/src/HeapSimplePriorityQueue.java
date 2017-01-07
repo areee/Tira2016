@@ -287,7 +287,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 /*Jos alkio on keon ainoa solmu, riittää pelkästään poistaa 
                 solmu:*/
                 try {
-                    T.remove(r);
+                    removedNode = T.remove(r);
                     last = null;
 
                 } catch (InvalidPositionException ex) {
@@ -295,18 +295,25 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 }
                 break;
 
-            case 2:
+            case 2: {
                 try {
-                    // Poistetaan juuren lapseen siirretty ex-juuri:
-                    T.remove(w);
+                    removedNode = T.swap(r, w);
                 } catch (InvalidPositionException ex) {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
+            }
 
-                /* Tämän jälkeen vanha juuri on poistettu ja uusi juuri on 
+            try {
+                // Poistetaan juuren lapseen siirretty ex-juuri:
+                T.remove(removedNode);
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
+
+            /* Tämän jälkeen vanha juuri on poistettu ja uusi juuri on 
                 viimeinen:*/
-                last = T.root();
-                break;
+            last = T.root();
+            break;
 
             // Jos keon koko on suurempi kuin 2:
             default: {
