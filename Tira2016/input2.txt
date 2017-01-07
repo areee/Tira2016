@@ -1,0 +1,29 @@
+i 2 kakkonen
+i 4 nelonen
+i 5 vitonen
+i 1 yksi
+i 9 ysi
+s
+m
+p
+r
+s
+m
+p
+r
+s
+m
+p
+r
+s
+m
+p
+r
+s
+m
+p
+r
+s
+m
+p
+q

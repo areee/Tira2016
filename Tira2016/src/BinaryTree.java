@@ -1,5 +1,7 @@
 
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Binääripuu on järjestetty puu, jossa solmuilla on joko ei yhtään tai kaksi
@@ -393,7 +395,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
         HeapNode left = r1.getLeft();
         HeapNode right = r1.getRight();
 
-        if (left.getKey() != 0 && right.getKey() != 0) {
+        if (!leftKeyZero(r1) && !rightKeyZero(r1)) {
             throw new InvalidPositionException("Ei voida poistaa, sillä solmussa"
                     + " on kaksi lasta.");
         }
