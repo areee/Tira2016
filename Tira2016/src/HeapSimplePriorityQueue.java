@@ -330,16 +330,18 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 }
                 removedRoot = w; // poistettava juuri on nyt viimeisessä solmussa
 
-                // Etsitään uusi last-solmu:
-                /* Jos removedRoot on oikeanpuoleinen lapsi, asetetaan last-muuttuja
-                sen vanhemman vasemmanpuoleiseen lapseen.*/
+                // Etsitään uusi last-solmu.
+                /* Jos removedRoot on oikeanpuoleinen lapsi, asetetaan last-
+                muuttuja sen vanhemman vasemmanpuoleiseen lapseen.*/
                 if (isRightChild(removedRoot)) {
                     HeapNode parent = removedRoot.getParent();
                     HeapNode left = parent.getLeft();
                     last = left;
                 } else {
-                    /* removedRoot on itse vasemmanpuoleinen lapsi vanhempaansa nähden.*/
+                    /* Muussa tapauksessa removedRoot on itse vasemmanpuoleinen
+                    lapsi vanhempaansa nähden.*/
                     try {
+                        // Fiksattavaa täällä!
                         while (!T.isRoot(removedRoot) && (!isLeftChild(removedRoot) && !isRightChild(removedRoot))) {
                             removedRoot = T.parent(removedRoot);
                         }
