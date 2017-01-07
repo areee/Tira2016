@@ -450,7 +450,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @return boolean
      * @throws InvalidPositionException
      */
-    public boolean isExternal_KeyZeroLeft(HeapNode v) throws
+    public boolean leftKeyZero(HeapNode v) throws
             InvalidPositionException {
         checkPosition(v);
         return v.getLeft().getKey() == 0;
@@ -464,7 +464,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
      * @return boolean
      * @throws InvalidPositionException
      */
-    public boolean isExternal_KeyZeroRight(HeapNode v) throws
+    public boolean rightKeyZero(HeapNode v) throws
             InvalidPositionException {
         checkPosition(v);
         return v.getRight().getKey() == 0;

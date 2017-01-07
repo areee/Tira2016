@@ -360,7 +360,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
 
                     try {
                         // removedRoot.getRight().getKey() != 0:
-                        while (!T.isExternal_KeyZeroRight(removedRoot)) {
+                        while (!T.rightKeyZero(removedRoot)) {
                             removedRoot = T.rightChild(removedRoot);
                         }
                     } catch (InvalidPositionException ex) {
@@ -382,8 +382,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 try {
                     /* Niin kauan kuin r on sisäsolmu (eli jomman kumman lapsen 
                     avain ei ole nolla):*/
-                    while (!T.isExternal_KeyZeroLeft(r)
-                            || !T.isExternal_KeyZeroRight(r)) {
+                    while (!T.leftKeyZero(r)
+                            || !T.rightKeyZero(r)) {
 
                         /*Jos juuren r vasen lapsi on sen ainoa lapsisolmu, olkoon
                         s juuren r vasen lapsi.*/
