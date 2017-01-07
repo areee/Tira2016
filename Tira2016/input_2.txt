@@ -2,6 +2,14 @@ i 9 X
 s
 m
 p
+i 4 E
+s
+m
+p
+r
+s
+m
+p
 r
 s
 m

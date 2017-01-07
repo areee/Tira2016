@@ -287,7 +287,6 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 /*Jos alkio on keon ainoa solmu, riittää pelkästään poistaa 
                 solmu:*/
                 try {
-
                     T.remove(r);
                     last = null;
 
@@ -297,10 +296,9 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 break;
 
             case 2:
-                r = swap(r, w);
                 try {
                     // Poistetaan juuren lapseen siirretty ex-juuri:
-                    T.remove(r);
+                    T.remove(w);
                 } catch (InvalidPositionException ex) {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
@@ -311,64 +309,67 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 break;
 
             // Jos keon koko on suurempi kuin 2:
-            default:
-
-                // Vaihdetaan juuren ja viimeisen solmun paikkoja keskenään sekä 
-                // asetetaan poistettava juuri ex-viimeiseen solmuun:
-                removedNode = swap(r, w);
-
-                // Etsitään uusi last-solmu.
-                // Jos removedRoot on oikeanpuoleinen lapsi, asetetaan last-
-                // muuttuja sen vanhemman vasemmanpuoleiseen lapseen.
-                if (isRightChild(w)) {
-                    HeapNode parent = w.getParent();
-                    HeapNode left = parent.getLeft();
-                    last = left;
-                } else {
-
-                    /* Muussa tapauksessa removedRoot on itse vasemmanpuoleinen
-                    lapsi vanhempaansa nähden.*/
-                    try {
-                        /*Niin kauan kuin tämä vasempi lapsi ei ole juuri tai 
-                        oikea lapsi:*/
-                        while (!T.isRoot(w) && !isRightChild(w)) {
-                            w = T.parent(w);
-                        }
-                    } catch (InvalidPositionException ex) {
-                        System.out.println("Ongelma solmun sijainnissa:\n" + ex);
-                    }
-
-                    // Jos solmu on oikea lapsi, siirry vasemmanpuoleiseen sisarukseen:
-                    if (isRightChild(w)) {
-                        w = T.sibling(w);
-
-                    }
-
-                    try {
-                        // Siirrytään alaspäin, kunnes saavutetaan oikeanpuoleinen lehtisolmu:
-                        while (!T.rightKeyZero(w)) {
-                            w = T.rightChild(w);
-                        }
-                    } catch (InvalidPositionException ex) {
-                        System.out.println("Ongelma solmun sijainnissa:\n" + ex);
-                    }
-                    last = w;
-                }
-
-
-                /* Kun uuden last-solmun sijainti on asetettu, poistetaan vanha
-                juuri:*/
+            default: {
                 try {
-                    T.remove(w);
+                    // Vaihdetaan juuren ja viimeisen solmun paikkoja keskenään sekä
+                    // asetetaan poistettava juuri ex-viimeiseen solmuun:
+                    removedNode = T.swap(r, w);
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+                }
+            }
 
+            // Etsitään uusi last-solmu.
+            // Jos removedRoot on oikeanpuoleinen lapsi, asetetaan last-
+            // muuttuja sen vanhemman vasemmanpuoleiseen lapseen.
+            if (isRightChild(w)) {
+                HeapNode parent = w.getParent();
+                HeapNode left = parent.getLeft();
+                last = left;
+            } else {
+
+                /* Muussa tapauksessa removedRoot on itse vasemmanpuoleinen
+                    lapsi vanhempaansa nähden.*/
+                try {
+                    /*Niin kauan kuin tämä vasempi lapsi ei ole juuri tai 
+                        oikea lapsi:*/
+                    while (!T.isRoot(w) && !isRightChild(w)) {
+                        w = T.parent(w);
+                    }
                 } catch (InvalidPositionException ex) {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
 
-                /* Tarkistetaan seuraavaksi, onko kekojärjestysominaisuus mennyt 
+                // Jos solmu on oikea lapsi, siirry vasemmanpuoleiseen sisarukseen:
+                if (isRightChild(w)) {
+                    w = T.sibling(w);
+                }
+
+                try {
+                    // Siirrytään alaspäin, kunnes saavutetaan oikeanpuoleinen lehtisolmu:
+                    while (!T.rightKeyZero(w)) {
+                        w = T.rightChild(w);
+                    }
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+                }
+                last = w;
+            }
+
+
+            /* Kun uuden last-solmun sijainti on asetettu, poistetaan vanha
+                juuri:*/
+            try {
+                T.remove(removedNode);
+
+            } catch (InvalidPositionException ex) {
+                System.out.println("Ongelma solmun sijainnissa:\n" + ex);
+            }
+
+            /* Tarkistetaan seuraavaksi, onko kekojärjestysominaisuus mennyt 
                 rikki poiston yhteydessä. Jos on, korjataan:*/
-                downHeapBubbling();
-                break;
+            downHeapBubbling();
+            break;
         }
         return removedNode;
     }
@@ -411,26 +412,6 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         } catch (InvalidPositionException ex) {
             System.out.println("Ongelma solmun sijainnissa:\n" + ex);
         }
-    }
-
-    /**
-     * Vaihtaa kahden solmun avaimen ja merkkijonon arvoa keskenään sekä vaihdon
-     * jälkeen asettaa poistettavan juuren aiempaan viimeiseen solmuun.
-     *
-     * @param r HeapNode
-     * @param w HeapNode
-     * @return HeapNode
-     */
-    private HeapNode swap(HeapNode r, HeapNode w) {
-        /* Jos keossa on kaksi solmua (juuri ja juuren lapsi (=last)),
-        vaihdetaan niiden paikkaa keskenään:*/
-        try {
-            T.swap(r, w);
-
-        } catch (InvalidPositionException ex) {
-            System.out.println("Ongelma solmun sijainnissa:\n" + ex);
-        }
-        return w;// poistettava juuri on nyt viimeisessä solmussa
     }
 
     @Override

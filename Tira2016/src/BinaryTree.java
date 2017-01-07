@@ -105,7 +105,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
     }
 
     @Override
-    public void swap(HeapNode r, HeapNode w) throws InvalidPositionException {
+    public HeapNode swap(HeapNode r, HeapNode w) throws InvalidPositionException {
         HeapNode r1 = checkPosition(r);
         HeapNode w1 = checkPosition(w);
 
@@ -113,6 +113,7 @@ public class BinaryTree implements BinaryTreeInterface { // aiemmin implementoi:
 
         w1.setKeyAndElement(r.getKey(), r.getElement());
         r1.setKeyAndElement(temp.getKey(), temp.getElement());
+        return w1;
     }
 
     @Override
