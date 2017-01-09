@@ -4,7 +4,7 @@
  *
  * @author ylhaart
  */
-public interface PriorityQueueInterface {
+public interface PriorityQueue {
 
     /**
      * Palauttaa prioriteettijonon P alkioiden lukumäärän.

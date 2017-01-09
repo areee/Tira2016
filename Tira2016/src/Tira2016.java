@@ -1,7 +1,4 @@
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * Tietorakenteet-kurssin harjoitustyö. (c) 2016-2017 Arttu Ylhävuori.
  *

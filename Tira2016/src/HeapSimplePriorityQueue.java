@@ -1,13 +1,10 @@
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  * Prioriteettijonon abstraktin tietotyypin toteutus kekona.
  *
  * @author ylhaart
  */
-public class HeapSimplePriorityQueue implements PriorityQueueInterface {
+public class HeapSimplePriorityQueue implements PriorityQueue {
 
     /* Keko T, jossa ovat solmuissa talletettuina prioriteettijonon alkiot 
     ja avaimet:*/
@@ -200,7 +197,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                 try {
 
                     u = T.parent(z);
-                } catch (Exception ex) {
+                } catch (BoundaryViolationException | InvalidPositionException ex) {
                     System.out.println("Kyseessä on juuri:\n" + ex);
                 }
 

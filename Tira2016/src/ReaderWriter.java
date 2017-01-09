@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Lukee syötteitä ja kirjoittaa tulosteita.
@@ -23,13 +21,8 @@ public class ReaderWriter {
 
     public void readAndWrite() throws ArgsLengthZeroException {
         String line;
-        if (args.length == 0) {
-            throw new ArgsLengthZeroException("Komentoriviargumentteja ei ole annettu!"
-                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
 
-//            throw new ArrayIndexOutOfBoundsException("Komentoriviargumentteja ei ole annettu!"
-//                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
-        } else {
+        if (args.length == 2) {
             try {
                 BufferedReader input1 = new BufferedReader(new FileReader(args[0]));
                 long count = countLines();
@@ -70,6 +63,9 @@ public class ReaderWriter {
             } catch (IOException e) {
                 System.out.println("File not found.");;
             }
+        } else {
+            throw new ArgsLengthZeroException("Komentoriviargumentteja ei ole annettu!"
+                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
         }
     }
 
@@ -87,13 +83,13 @@ public class ReaderWriter {
     }
 
     private void error(BufferedWriter output) throws IOException {
-        System.out.println("Virheellinen syöte."); // aputuloste
         output.write("Virheellinen syöte.");
         output.newLine();
     }
 
     private void quit(BufferedWriter output) throws IOException {
-        System.out.println("Ohjelma lopetettu."); // aputuloste
+        System.out.println("Ohjelma lopetettu. "
+                + "Tarkista tulokset " + args[1] + "-tiedostosta.");
         output.write("Ohjelma lopetettu.");
     }
 
@@ -101,7 +97,6 @@ public class ReaderWriter {
             throws IOException {
         try {
             String print = heap.print();
-            System.out.println(print); // aputuloste
             output.write(print);
             output.newLine();
         } catch (EmptyTreeException ex) {
@@ -113,7 +108,6 @@ public class ReaderWriter {
             throws IOException {
         try {
             HeapNode minKey = heap.minKey();
-            System.out.println("Pienin alkio on " + minKey + "."); // aputuloste
             output.write("Pienin alkio on " + minKey + ".");
             output.newLine();
         } catch (EmptyTreeException ex) {
@@ -126,7 +120,6 @@ public class ReaderWriter {
         HeapNode removeMinElement;
         try {
             removeMinElement = heap.removeMinElement();
-            System.out.println(removeMinElement + " poistettu."); // aputuloste
             output.write(removeMinElement + " poistettu.");
             output.newLine();
         } catch (EmptyTreeException ex) {
@@ -135,7 +128,6 @@ public class ReaderWriter {
     }
 
     private void writeQueueIsEmpty(BufferedWriter output) throws IOException {
-        System.out.println("Jono on tyhjä."); // aputuloste
         output.write("Jono on tyhjä.");
         output.newLine();
     }
@@ -146,7 +138,6 @@ public class ReaderWriter {
         if (size == 0) {
             writeQueueIsEmpty(output);
         } else {
-            System.out.println("" + size); // aputuloste
             output.write("" + size);
             output.newLine();
         }
@@ -159,13 +150,11 @@ public class ReaderWriter {
                 try {
                     int parseInt = Integer.parseInt(values[1]);
                     HeapNode insertItem = heap.insertItem(parseInt, values[2]);
-                    System.out.println(insertItem + " lis.");// aputuloste
                     output.write(insertItem + " lis.");
                     output.newLine();
                 } catch (NumberFormatException e) {
                     error(output);
                 } catch (KeyAlreadyInQueueException ex) {
-                    System.out.println("" + ex.getMessage());
                     output.write("" + ex.getMessage());
                     output.newLine();
                 }

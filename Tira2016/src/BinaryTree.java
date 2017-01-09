@@ -1,7 +1,5 @@
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Binääripuu on järjestetty puu, jossa solmuilla on joko ei yhtään tai kaksi
