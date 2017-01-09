@@ -28,7 +28,8 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
     }
 
     @Override
-    public HeapNode insertItem(int k, String e) throws InvalidKeyException {
+    public HeapNode insertItem(int k, String e) throws InvalidKeyException,
+            KeyAlreadyInQueueException {
         // Jos vertaimen mukaan avain ei ole vertailtavissa:
         if (!comparator.isComparable(k)) {
             throw new InvalidKeyException("Avain ei kelpaa.");
@@ -43,7 +44,7 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
         else {
             // Jos avain löytyy jo keosta:
             if (keyIsAlreadyInHeap(k)) {
-                throw new InvalidKeyException("Avain on jo keossa.");
+                throw new KeyAlreadyInQueueException("Avain " + k + " on jo jonossa.");
             } else if (keyIsZero(k)) {
                 // Jos avain on arvoltaan nolla:
                 throw new InvalidKeyException("Avain on nolla.");

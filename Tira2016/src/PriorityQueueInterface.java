@@ -28,7 +28,8 @@ public interface PriorityQueueInterface {
      * @return HeapNode
      * @throws InvalidKeyException
      */
-    public HeapNode insertItem(int k, String e) throws InvalidKeyException;
+    public HeapNode insertItem(int k, String e) throws InvalidKeyException,
+            KeyAlreadyInQueueException;
 
     /**
      * Palauttaa P:n alkion, jolla on pienin avain. Virhe esiintyy

@@ -1,41 +1,39 @@
-(7,seiska) lis.
-1
-Pienin alkio on (7,seiska).
-7
+(2,kakkonen) lis.
 (4,nelonen) lis.
+(5,vitonen) lis.
+(1,yksi) lis.
+(9,ysi) lis.
+Avain 2 on jo jonossa.
+5
+Pienin alkio on (1,yksi).
+1
+  2
+    4
+    9
+  5
+(1,yksi) poistettu.
+4
+Pienin alkio on (2,kakkonen).
 2
-Pienin alkio on (4,nelonen).
-4
-  7
-(8,kasi) lis.
-3
-Pienin alkio on (4,nelonen).
-4
-  7
-  8
-(3,kolme) lis.
-4
-Pienin alkio on (3,kolme).
-3
   4
-    7
-  8
-(3,kolme) poistettu.
+    9
+  5
+(2,kakkonen) poistettu.
 3
 Pienin alkio on (4,nelonen).
 4
-  7
-  8
+  9
+  5
 (4,nelonen) poistettu.
 2
-Pienin alkio on (7,seiska).
-7
-  8
-(7,seiska) poistettu.
+Pienin alkio on (5,vitonen).
+5
+  9
+(5,vitonen) poistettu.
 1
-Pienin alkio on (8,kasi).
-8
-(8,kasi) poistettu.
+Pienin alkio on (9,ysi).
+9
+(9,ysi) poistettu.
 Jono on tyhjä.
 Jono on tyhjä.
 Jono on tyhjä.

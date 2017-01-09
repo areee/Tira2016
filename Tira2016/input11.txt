@@ -1,12 +1,16 @@
-i 2 kakkonen
-i 4 nelonen
-i 5 vitonen
-i 1 yksi
-i 9 ysi
+i 7 seiska
 s
 m
 p
-r
+i 4 nelonen
+s
+m
+p
+i 8 kasi
+s
+m
+p
+i 3 kolme
 s
 m
 p

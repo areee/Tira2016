@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Lukee syötteitä ja kirjoittaa tulosteita.
@@ -160,6 +162,10 @@ public class ReaderWriter {
                     output.newLine();
                 } catch (NumberFormatException e) {
                     error(output);
+                } catch (KeyAlreadyInQueueException ex) {
+                    System.out.println("" + ex.getMessage());
+                    output.write("" + ex.getMessage());
+                    output.newLine();
                 }
             } catch (InvalidKeyException ex) {
                 error(output);
