@@ -1,108 +1,16 @@
-i 15 K
+i 7 seiska
 s
 m
 p
-i 25 J
+i 4 nelonen
 s
 m
 p
-i 20 B
+i 8 kasi
 s
 m
 p
-i 11 S
-s
-m
-p
-i 12 H
-s
-m
-p
-i 16 X
-s
-m
-p
-i 6 Z
-s
-m
-p
-i 4 C
-s
-m
-p
-i 5 A
-s
-m
-p
-i 13 W
-s
-m
-p
-i 7 Q
-s
-m
-p
-i 14 E
-s
-m
-p
-i 9 F
-s
-m
-p
-i 0 P
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
-s
-m
-p
-r
+i 3 kolme
 s
 m
 p

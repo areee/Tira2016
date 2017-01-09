@@ -404,17 +404,19 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                     // Jos vasen lapsi < oikea lapsi:
                     if (comparator.isLessThan(keyOfPosition(left),
                             keyOfPosition(right))) {
-                        s = left;
-                    } else {
-                        s = right;
+                        s = left; // s saa pienemmän lapsen arvon
+                    } else { // muussa tapauksessa vasen lapsi > oikea lapsi
+                        s = right; // s saa pienemmän lapsen arvon
                     }
                 }
 
+                // Jos r < s, lopeta:
                 if (comparator.isLessThan(keyOfPosition(r), keyOfPosition(s))) {
                     break;
                 }
+                // Muuten vaihda r:n ja s:n paikkaa keskenään:
                 T.swap(r, s);
-                r = s;
+                r = s; // siirry alaspäin keossa
             }
         } catch (InvalidPositionException ex) {
             System.out.println("Ongelma solmun sijainnissa:\n" + ex);
