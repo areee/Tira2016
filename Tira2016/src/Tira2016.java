@@ -1,4 +1,7 @@
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Tietorakenteet-kurssin harjoitustyö. (c) 2016-2017 Arttu Ylhävuori.
  *
@@ -9,6 +12,13 @@ public class Tira2016 {
     public static void main(String[] args) {
 
         ReaderWriter rw = new ReaderWriter(args);
-        rw.readAndWrite();
+        try {
+            rw.readAndWrite();
+        } catch (ArgsLengthZeroException ex) {
+            System.out.println("Komentoriviargumentteja ei ole annettu!"
+                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt "
+                    + "output.txt\".");
+        }
+
     }
 }

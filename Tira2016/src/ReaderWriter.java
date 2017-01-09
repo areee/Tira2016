@@ -21,12 +21,14 @@ public class ReaderWriter {
         this.args = args;
     }
 
-    public void readAndWrite() {
+    public void readAndWrite() throws ArgsLengthZeroException {
         String line;
         if (args.length == 0) {
-            throw new ArrayIndexOutOfBoundsException("Komentoriviargumentteja ei ole annettu!"
+            throw new ArgsLengthZeroException("Komentoriviargumentteja ei ole annettu!"
                     + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
 
+//            throw new ArrayIndexOutOfBoundsException("Komentoriviargumentteja ei ole annettu!"
+//                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
         } else {
             try {
                 BufferedReader input1 = new BufferedReader(new FileReader(args[0]));
