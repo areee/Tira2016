@@ -21,45 +21,51 @@ public class ReaderWriter {
 
     public void readAndWrite() {
         String line;
-        try {
-            BufferedReader input1 = new BufferedReader(new FileReader(args[0]));
-            long count = countLines();
-            try {
-                BufferedWriter output = new BufferedWriter(new FileWriter(args[1]));
-                HeapSimplePriorityQueue heap = new HeapSimplePriorityQueue();
+        if (args.length == 0) {
+            throw new ArrayIndexOutOfBoundsException("Komentoriviargumentteja ei ole annettu!"
+                    + "\nSuorita ohjelma komennolla \"java Tira2016 input.txt output.txt\".");
 
-                for (int i = 0; i < count; i++) {
-                    String[] values = readLineAndSplit(input1);
-                    switch (values[0]) {
-                        case "i":
-                            insert(values, heap, output);
-                            break;
-                        case "s":
-                            size(heap, output);
-                            break;
-                        case "r":
-                            remove(heap, output);
-                            break;
-                        case "m":
-                            minKey(heap, output);
-                            break;
-                        case "p":
-                            print(heap, output);
-                            break;
-                        case "q":
-                            quit(output);
-                            break;
-                        default:
-                            error(output);
-                            break;
+        } else {
+            try {
+                BufferedReader input1 = new BufferedReader(new FileReader(args[0]));
+                long count = countLines();
+                try {
+                    BufferedWriter output = new BufferedWriter(new FileWriter(args[1]));
+                    HeapSimplePriorityQueue heap = new HeapSimplePriorityQueue();
+
+                    for (int i = 0; i < count; i++) {
+                        String[] values = readLineAndSplit(input1);
+                        switch (values[0]) {
+                            case "i":
+                                insert(values, heap, output);
+                                break;
+                            case "s":
+                                size(heap, output);
+                                break;
+                            case "r":
+                                remove(heap, output);
+                                break;
+                            case "m":
+                                minKey(heap, output);
+                                break;
+                            case "p":
+                                print(heap, output);
+                                break;
+                            case "q":
+                                quit(output);
+                                break;
+                            default:
+                                error(output);
+                                break;
+                        }
                     }
+                    output.close();
+                } catch (IOException e) {
+                    System.err.format("IOException: %s%n", e);
                 }
-                output.close();
             } catch (IOException e) {
-                System.err.format("IOException: %s%n", e);
+                System.out.println("File not found.");;
             }
-        } catch (IOException e) {
-            System.out.println("File not found.");;
         }
     }
 
