@@ -348,9 +348,16 @@ public class HeapSimplePriorityQueue implements PriorityQueueInterface {
                     System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
 
-                // Jos solmu on oikea lapsi, siirry vasemmanpuoleiseen sisarukseen:
-                if (isRightChild(w)) {
-                    w = T.sibling(w);
+                try {
+                    // Jos solmu ei ole juuri, mutta oikea lapsi, siirry 
+                    // vasemmanpuoleiseen sisarukseen:
+                    if (!T.isRoot(w)) {
+                        if (isRightChild(w)) {
+                            w = T.sibling(w);
+                        }
+                    }
+                } catch (InvalidPositionException ex) {
+                    System.out.println("Ongelma solmun sijainnissa:\n" + ex);
                 }
 
                 try {
